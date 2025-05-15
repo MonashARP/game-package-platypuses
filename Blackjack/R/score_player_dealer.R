@@ -8,10 +8,10 @@
 #'
 #' @return A numeric value representing the score of the hand.
 #' @examples
-#' score_hand(c("A♠", "10♦"))  # returns 21
-#' score_hand(c("A♠", "9♠", "2♦"))  # returns 12
+#' blackjack_score(c("A♠", "10♦"))  # returns 21
+#' blackjack_score(c("A♠", "9♠", "2♦"))  # returns 12
 #' @export
-blackjack_score() <- function(hand) {
+blackjack_score <- function(hand) {
   # Remove the suit symbols from each card
   ranks <- gsub("[♠♥♦♣]", "", hand)
   
@@ -35,6 +35,3 @@ blackjack_score() <- function(hand) {
   
   return(total)
 }
-
-}
-
