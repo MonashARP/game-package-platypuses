@@ -12,6 +12,7 @@
 #'
 #' @examples
 #' simulate_blackjack_game(num_players = 2, seed = 123)
+#' @importFrom stats runif
 simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
