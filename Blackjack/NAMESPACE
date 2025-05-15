@@ -3,3 +3,5 @@
 export(blackjack_score)
 export(deal_hand)
 export(deck_cards)
+export(is_soft_17)
+export(simulate_blackjack_game)
