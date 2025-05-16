@@ -6,13 +6,11 @@
 #'
 #' @param num_players Integer. Number of players (default is 1).
 #' @param seed Optional integer to set random seed for reproducibility.
-#'
 #' @return A list containing each player's hand, score, result, and the dealer's final hand and score.
+#' @importFrom stats runif
 #' @export
-#'
 #' @examples
 #' simulate_blackjack_game(num_players = 2, seed = 123)
-#' @importFrom stats runif
 simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
@@ -37,7 +35,7 @@ simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
     player_hands[[i]] <- draw_cards(2)
   }
 
-  # Step 5: Player turns — simulate decisions
+  # Player turns — simulate decisions
   for (i in seq_len(num_players)) {
     repeat {
       score <- blackjack_score(player_hands[[i]])
@@ -66,7 +64,7 @@ simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
   # Compute all player scores once
   player_scores <- lapply(player_hands, blackjack_score)
 
-  # results
+  # Results
   results <- character(num_players)
   dealer_bust <- dealer_score > 21
 
@@ -87,17 +85,22 @@ simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
   }
 
   # Return summary
-  list(
-    players = lapply(seq_len(num_players), function(i) {
-      list(
-        hand = player_hands[[i]],
-        score = player_scores[[i]],
-        result = results[i]
+  endgame <- structure(
+    list(
+      players = lapply(seq_len(num_players), function(i) {
+        list(
+          hand = player_hands[[i]],
+          score = player_scores[[i]],
+          result = results[i]
+        )
+      }),
+      dealer = list(
+        hand = dealer_hand,
+        score = dealer_score
       )
-    }),
-    dealer = list(
-      hand = dealer_hand,
-      score = dealer_score
-    )
+    ),
+    class = "blackjack_game"
   )
+
+  return(endgame)
 }
