@@ -7,6 +7,7 @@
 #' @param deck A character vector of cards (default: deck_cards())
 #' @param n Number of cards to deal (default is 2)
 #' @return A character vector containing the dealt cards
+#' @rdname deck_of_cards
 #' @export
 #' @examples
 #' deal_hand(deck_cards()$cards, 2)
