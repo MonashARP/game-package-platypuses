@@ -10,7 +10,7 @@ vignette: >
 ## Introduction of `Blackjack` package
 <br> 
 
-This package allows users to calculate the score from a round where the inputs are the cards held by the player and the dealer at the end of the game. It supports scoring individual hands, simulating a full round between a dealer and one or more players, and includes decision-making logic for both players and the dealer—such as hitting, standing, and handling soft 17 scenarios. So, users are able to simulate rounds of the classic casino game Blackjack using this package.
+This package allows users to calculate the score from a round where the inputs are the cards held by the player and the dealer at the end of the game. It supports scoring individual hands, simulating a full round between a dealer and one or more players, and includes decision-making logic for both players and the dealer—such as hitting, standing, and handling soft 17 scenarios. 
 
 ## Usage
 ```{r, eval = FALSE}
@@ -24,22 +24,50 @@ deck <- deck_cards()
 #Deal a hand
 deal_hand(deck_cards()$cards, 2)
 
-#Calculate score in hand
+#Calculate the score of a hand
 blackjack_score(c("A♠", "9♦"))
 ```
 
 
-## Example
-
+## Example 
 
 ### Simulating a round 
 
-The simulate_blackjack_game() function plays out a single round of Blackjack for 1 or more players. It uses all pre-defined helper functions such as deck_cards() and blackjack_score() to handle deck setup, card dealing, scoring, player decisions, and dealer rules—including the rule of hitting on soft 17.
+The `simulate_blackjack_game()` function plays out a full round of Blackjack for one or more players. It uses all pre-defined helper functions such as `deck_cards()` and `blackjack_score()` to handle deck setup, card dealing, scoring, player decisions, and dealer rules — including the rule of hitting on soft 17.
+
 
 ```{r}
 # Simulate a round with 2 players using a set seed to ensure repeatable results
-result <- simulate_blackjack_game(num_players = 2, seed = 123)
+result <- simulate_blackjack_game(num_players = 2, seed = 375)
 print(result)
+```
+
+### Accessing Player and Dealer Results
+
+You can inspect individual player and dealer outcomes using list indexing:
+
+-  To check the results for Player 1, use:
+```{r}
+result$players[[1]]
+```
+
+You can change the number in players[[x]] to inspect other players (e.g., players[[2]] for Player 2).
+
+
+- To check the Dealer's hand and score, use:
+```{r}
+result$dealer
+```
+
+### Checking for Soft 17 (Optional Helper)
+
+The helper function `is_soft_17()` checks whether a hand is considered a "soft 17" — that is, a hand totaling 17 that includes an Ace counted as 11. This rule affects whether the dealer should hit or stand during gameplay.
+
+This function is used internally by `simulate_blackjack_game()`, but you can also test hands manually:
+
+```{r}
+is_soft_17(c("A♠", "6♦"))     
+is_soft_17(c("10♣", "7♦"))    
 ```
 
 
