@@ -93,5 +93,5 @@ Tests include:
 
 ## Learn More
 
-For more details and examples, see the vignette or visit the package website []().
+For more details and examples, see the vignette or visit the package website [Blackjack](https://monasharp.github.io/game-package-platypuses/).
 

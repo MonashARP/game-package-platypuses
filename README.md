@@ -110,4 +110,5 @@ Tests include:
 ## Learn More
 
 For more details and examples, see the vignette or visit the package
-website []().
+website
+[Blackjack](https://monasharp.github.io/game-package-platypuses/).
