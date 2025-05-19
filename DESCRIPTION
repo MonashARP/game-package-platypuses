@@ -1,10 +1,18 @@
 Package: Blackjack
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Simulate and Score Blackjack Game Rounds
+Version: 0.0.1
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: License: MIT 
+    c(
+      person("Min Ni", "Hong", email = "mhon0009@student.monash.edu", role = c("aut", "cre")),
+      person("Vaishnavi", "Amuda", email = "vamu0003@student.monash.edu", role = "aut"),
+      person("Shivesh", "Palanisamy", email = "spal0044@student.monash.edu", role = "aut")
+    )
+Description: The Blackjack package enables users to simulate rounds of the classic Blackjack game 
+    and calculate the score of hands using standard rules. It includes functions to create shuffled 
+    decks, deal cards, score player and dealer hands with proper handling of Aces, and simulate 
+    full rounds with multiple players. The package also supports decision-making logic such as 
+    hitting, standing, and handling soft 17 scenarios. Includes a vignette with gameplay examples.
+License: MIT
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
