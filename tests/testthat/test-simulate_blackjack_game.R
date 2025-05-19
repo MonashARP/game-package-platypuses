@@ -26,7 +26,6 @@ test_that("simulate_blackjack_game works with 1 player", {
 })
 
 test_that("simulate_blackjack_game handles edge cases (21, bust)", {
-  # This seed should produce some known outcomes for coverage
   result <- simulate_blackjack_game(num_players = 3, seed = 333)
   for (player in result$players) {
     expect_true(player$score >= 0)
@@ -41,3 +40,13 @@ test_that("simulate_blackjack_game handles no players", {
   expect_type(result$dealer$hand, "character")
   expect_true(result$dealer$score >= 0)
 })
+
+test_that("print.blackjack_game behaves correctly", {
+  game <- simulate_blackjack_game(num_players = 2, seed = 123)
+  printed_output <- capture.output(result <- print(game))
+  expect_true(length(printed_output) > 0)
+  expect_equal(result, game)
+  expect_s3_class(result, "blackjack_game")
+})
+
+
