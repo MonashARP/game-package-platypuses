@@ -13,9 +13,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# blackjackR
+# Blackjack
 
-`blackjackR` is an R package that simulates a multiplayer game of Blackjack between players and a dealer. It implements realistic Blackjack rules such as dealer behavior on soft 17 and bust detection, with players making hit/stand decisions using a simplified strategy.
+`Blackjack` is an R package that simulates a multiplayer game of Blackjack between players and a dealer. It implements realistic Blackjack rules such as dealer behavior on soft 17 and bust detection, with players making hit/stand decisions using a simplified strategy.
 
 
 ## Installation
@@ -26,7 +26,7 @@ You can install the development version of the package using `devtools`:
 # Install devtools if not already installed
 install.packages("devtools")
 
-# Install blackjackR from GitHub
+# Install Blackjack from GitHub
 devtools::install_github("MonashARP/game-package-platypuses")
 ```
 
@@ -86,9 +86,8 @@ $result
 To see a full walkthrough with plots and interpretation:
 
 ```{r}
-vignette("blackjackR-vingette")
+vignette("Blackjack")
 ```
-
 
 
 ## Testing
