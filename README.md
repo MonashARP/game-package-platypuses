@@ -107,20 +107,6 @@ Tests include:
 
 ------------------------------------------------------------------------
 
-## Authors
-
-- Min Hong
-- Vaishnavi Amuda
-- Shivesh Palanisamy
-
-------------------------------------------------------------------------
-
-## License
-
-MIT License
-
-------------------------------------------------------------------------
-
 ## Learn More
 
 For more details and examples, see the vignette or visit the package

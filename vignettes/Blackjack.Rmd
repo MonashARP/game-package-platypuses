@@ -7,13 +7,22 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
 ## Introduction of `Blackjack` package
 <br> 
 
 This package allows users to calculate the score from a round where the inputs are the cards held by the player and the dealer at the end of the game. It supports scoring individual hands, simulating a full round between a dealer and one or more players, and includes decision-making logic for both players and the dealer—such as hitting, standing, and handling soft 17 scenarios. 
 
 ## Usage
-```{r, include = FALSE}
+```{r, eval= FALSE}
 
 #Load the package
 library(Blackjack)
@@ -28,6 +37,10 @@ deal_hand(deck_cards()$cards, 2)
 blackjack_score(c("A♠", "9♦"))
 ```
 
+```{r setup}
+library(Blackjack)
+library(dplyr)
+```
 
 ## Example 
 
@@ -38,8 +51,8 @@ The `simulate_blackjack_game()` function plays out a full round of Blackjack for
 
 ```{r}
 # Simulate a round with 2 players using a set seed to ensure repeatable results
-result <- simulate_blackjack_game(num_players = 2, seed = 375)
-print(result)
+game <- simulate_blackjack_game(num_players = 2, seed = 375)
+print(game)
 ```
 
 ### Accessing Player and Dealer Results
@@ -48,7 +61,7 @@ You can inspect individual player and dealer outcomes using list indexing:
 
 -  To check the results for Player 1, use:
 ```{r}
-result$players[[1]]
+game$players[[1]]
 ```
 
 You can change the number in players[[x]] to inspect other players (e.g., players[[2]] for Player 2).
@@ -56,10 +69,10 @@ You can change the number in players[[x]] to inspect other players (e.g., player
 
 - To check the Dealer's hand and score, use:
 ```{r}
-result$dealer
+game$dealer
 ```
 
-### Checking for Soft 17 (Optional Helper)
+### Checking for Soft 17 
 
 The helper function `is_soft_17()` checks whether a hand is considered a "soft 17" — that is, a hand totaling 17 that includes an Ace counted as 11. This rule affects whether the dealer should hit or stand during gameplay.
 
@@ -70,4 +83,5 @@ is_soft_17(c("A♠", "6♦"))
 is_soft_17(c("10♣", "7♦"))    
 ```
 
+The guide above demonstrates how to use the `Blackjack` package to calculate the score from a round based on the cards held by the player and the dealer. It also shows how helper functions can be used to better understand the value of each hand and the rules applied during the game.
 
