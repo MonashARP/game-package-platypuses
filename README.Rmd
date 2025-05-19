@@ -54,7 +54,7 @@ devtools::install_github("MonashARP/game-package-platypuses")
 
 ## Example
 
-```{r}
+```{r, eval= FALSE}
 library(Blackjack)
 
 # Simulate a 2-player game
@@ -93,5 +93,5 @@ Tests include:
 
 ## Learn More
 
-For more details and examples, see the vignette or visit the package website [Blackjack](https://monasharp.github.io/game-package-platypuses/).
+For more details and examples, see the vignette or visit the package website [Blackjack](https://monasharp.github.io/game-package-platypuses/) on the **Get Started** page !
 

@@ -50,22 +50,9 @@ game <- simulate_blackjack_game(num_players = 2, seed = 123)
 
 # Dealer results
 game$dealer
-#> $hand
-#> [1] "5♦" "2♥" "Q♥"
-#> 
-#> $score
-#> [1] 17
 
 # Player 1 results
 game$players[[1]]
-#> $hand
-#> [1] "A♥" "3♠" "J♦"
-#> 
-#> $score
-#> [1] 14
-#> 
-#> $result
-#> [1] "Dealer wins!"
 ```
 
 ## Testing
@@ -111,4 +98,5 @@ Tests include:
 
 For more details and examples, see the vignette or visit the package
 website
-[Blackjack](https://monasharp.github.io/game-package-platypuses/).
+[Blackjack](https://monasharp.github.io/game-package-platypuses/) on the
+**Get Started** page !

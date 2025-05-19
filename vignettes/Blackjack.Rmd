@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 This package allows users to calculate the score from a round where the inputs are the cards held by the player and the dealer at the end of the game. It supports scoring individual hands, simulating a full round between a dealer and one or more players, and includes decision-making logic for both players and the dealer—such as hitting, standing, and handling soft 17 scenarios. 
 
 ## Usage
+
 ```{r, eval= FALSE}
 
 #Load the package
@@ -43,6 +44,7 @@ library(dplyr)
 ```
 
 ## Example 
+
 
 ### Simulating a round 
 
