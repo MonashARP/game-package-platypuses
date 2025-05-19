@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Blackjack: Blackjack.html
-last_built: 2025-05-19T08:05Z
+last_built: 2025-05-19T08:19Z
 urls:
   reference: https://monasharp.github.io/game-package-platypuses/reference
   article: https://monasharp.github.io/game-package-platypuses/articles
