@@ -2,7 +2,7 @@
 title: "Blackjack Game"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Blackjack Game}
+  %\VignetteIndexEntry{Blackjack}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,7 +13,7 @@ vignette: >
 This package allows users to calculate the score from a round where the inputs are the cards held by the player and the dealer at the end of the game. It supports scoring individual hands, simulating a full round between a dealer and one or more players, and includes decision-making logic for both players and the dealer—such as hitting, standing, and handling soft 17 scenarios. 
 
 ## Usage
-```{r, eval = FALSE}
+```{r, include = FALSE}
 
 #Load the package
 library(Blackjack)

@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# blackjackR
+# Blackjack
 
-`blackjackR` is an R package that simulates a multiplayer game of
+`Blackjack` is an R package that simulates a multiplayer game of
 Blackjack between players and a dealer. It implements realistic
 Blackjack rules such as dealer behavior on soft 17 and bust detection,
 with players making hit/stand decisions using a simplified strategy.
@@ -16,7 +16,7 @@ You can install the development version of the package using `devtools`:
 # Install devtools if not already installed
 install.packages("devtools")
 
-# Install blackjackR from GitHub
+# Install Blackjack from GitHub
 devtools::install_github("MonashARP/game-package-platypuses")
 ```
 
@@ -79,13 +79,12 @@ Example output might look like:
     $result
     [1] "Tie!"
 
-## Vignette
+## Learn More
 
-To see a full walkthrough with plots and interpretation:
+For full usage examples and gameplay logic, see the package vignette:
 
 ``` r
-vignette("blackjackR-vingette")
-#> Warning: vignette 'blackjackR-vingette' not found
+vignette("Blackjack")
 ```
 
 ## Testing
@@ -96,12 +95,21 @@ This package includes a full test suite using `testthat`. Run:
 devtools::test()
 #> ℹ Testing Blackjack
 #> ✔ | F W  S  OK | Context
-#> ⠏ |          0 | deal_hand                                                                        ✔ |          6 | deal_hand
-#> ⠏ |          0 | deck_cards                                                                       ✔ |          9 | deck_cards
-#> ⠏ |          0 | simulate_blackjack_game                                                          ✔ |         23 | simulate_blackjack_game
 #> 
-#> ══ Results ═══════════════════════════════════════════════════════════════════════════════════════
-#> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 38 ]
+#> ⠏ |          0 | deal_hand                                                      
+#> ✔ |          6 | deal_hand
+#> 
+#> ⠏ |          0 | deck_cards                                                     
+#> ✔ |          9 | deck_cards
+#> 
+#> ⠏ |          0 | score_player_dealer                                            
+#> ✔ |         10 | score_player_dealer
+#> 
+#> ⠏ |          0 | simulate_blackjack_game                                        
+#> ✔ |         26 | simulate_blackjack_game
+#> 
+#> ══ Results ═════════════════════════════════════════════════════════════════════
+#> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 51 ]
 ```
 
 Tests include: - Return structure - Score correctness - Bust handling -

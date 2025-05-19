@@ -81,11 +81,11 @@ $result
 ```
 
 
-## Vignette
+## Learn More
 
-To see a full walkthrough with plots and interpretation:
+For full usage examples and gameplay logic, see the package vignette:
 
-```{r}
+```{r, eval=FALSE}
 vignette("Blackjack")
 ```
 
