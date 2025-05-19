@@ -60,33 +60,12 @@ library(Blackjack)
 # Simulate a 2-player game
 game <- simulate_blackjack_game(num_players = 2, seed = 123)
 
+# Dealer results
+game$dealer
+
 # Player 1 results
 game$players[[1]]
 
-# Dealer results
-game$dealer
-```
-
-Example output might look like:
-
-```
-$hand
-[1] "9♠" "7♣" "3♠"
-
-$score
-[1] 19
-
-$result
-[1] "Tie!"
-```
-
-
-## Learn More
-
-For full usage examples and gameplay logic, see the package vignette:
-
-```{r, eval=FALSE}
-vignette("Blackjack")
 ```
 
 
@@ -99,22 +78,34 @@ devtools::test()
 ```
 
 Tests include:
+
 - Return structure
+
 - Score correctness
+
 - Bust handling
+
 - Dealer soft 17 behavior
+
 - Edge cases like 0 players or 21
 
 ---
 
 ## Authors
 
+- Min Hong
 - Vaishnavi Amuda
 - Shivesh Palanisamy
-- Min Hong
 
 ---
 
 ## License
 
 MIT License
+
+--- 
+
+## Learn More
+
+For more details and examples, see the vignette or visit the package website []().
+
