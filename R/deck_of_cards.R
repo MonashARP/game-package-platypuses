@@ -13,7 +13,7 @@ deck_cards <- function(no_of_decks = 1) {
   if (!is.numeric(no_of_decks) || no_of_decks < 1 || no_of_decks %% 1 != 0) {
     stop("no_of_decks must be a positive whole number")
   }
-  symbols <- c("♠", "♥", "♦", "♣")
+  suits <- c("♠", "♥", "♦", "♣")
   cards <- c("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
   deck <- paste(cards, rep(symbols, each = 13), sep = "")
   full_deck <- rep(deck, no_of_decks)
