@@ -13,17 +13,25 @@ deck_cards <- function(no_of_decks = 1) {
   if (!is.numeric(no_of_decks) || no_of_decks < 1 || no_of_decks %% 1 != 0) {
     stop("no_of_decks must be a positive whole number")
   }
+
   suits <- c("♠", "♥", "♦", "♣")
-  cards <- c("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
-  deck <- paste(cards, rep(symbols, each = 13), sep = "")
-  full_deck <- rep(deck, no_of_decks)
+  ranks <- c("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
+
+  all_cards <- paste0(rep(ranks, times = length(suits)), rep(suits, each = length(ranks)))
+  full_deck <- rep(all_cards, no_of_decks)
   shuffled <- sample(full_deck)
 
+  card_ranks <- substr(shuffled, 1, nchar(shuffled) - 1)
+  card_suits <- substr(shuffled, nchar(shuffled), nchar(shuffled))
+
+  card_obj <- card(card_ranks, card_suits)
+
   structure(
-    list(cards = shuffled, decks = no_of_decks),
+    list(cards = card_obj, decks = no_of_decks),
     class = "blackjack_deck"
   )
 }
+
 
 
 
