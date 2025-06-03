@@ -1,33 +1,16 @@
-#' Internal constructor for card class
-#'
-#' Constructs a new card vector using rank and suit without performing checks.
-#' This function is intended for internal use only.
-#'
-#' @param rank A character vector of card ranks.
-#' @param suit A character vector of card suits.
-#'
-#' @return An object of class 'card'
-#' @noRd
-new_card <- function(rank = character(), suit = character()) {
-  vctrs::new_rcrd(fields = list(rank = rank, suit = suit), class = "card")
-}
-
-#
-# User-facing constructor
-
 #' Create a card vector
 #'
-#' Constructs a custom card object with validated rank and suit fields.
+#' Constructs an S3 record (`rcrd`) object of class `"card"` with validated `rank` and `suit` fields.
+#' This function is the user-facing constructor for creating custom card objects.
 #'
 #' @param rank Character vector of ranks (e.g. "A", "2", ..., "K")
 #' @param suit Character vector of suits (e.g. "♠", "♥", "♦", "♣")
 #'
 #' @return An object of class 'card'
-#' @export
 #'
 #' @examples
 #' card(c("A", "10", "Q"), c("♠", "♥", "♦"))
-#' card("7", "♣")
+#' @export
 card <- function(rank = character(), suit = character()) {
   valid_ranks <- c(as.character(2:10), "J", "Q", "K", "A")
   valid_suits <- c("♠", "♥", "♦", "♣")
@@ -41,3 +24,40 @@ card <- function(rank = character(), suit = character()) {
   new_card(rank, suit)
 
 }
+
+#' Internal constructor for card class (not exported).
+#'
+#' Constructs a new card vector using rank and suit without performing checks.
+#' @noRd
+new_card <- function(rank = character(), suit = character()) {
+  vctrs::new_rcrd(fields = list(rank = rank, suit = suit), class = "card")
+}
+
+#' @export
+format.card <- function(x, ...) {
+  paste0(vctrs::field(x, "rank"), vctrs::field(x, "suit"))
+}
+
+#' @export
+vec_ptype2.card.card <- function(x, y, ...) {
+  new_card()
+}
+
+#' @export
+vec_ptype2.card.character <- function(x, y, ...) character()
+
+#' @export
+vec_ptype2.character.card <- function(x, y, ...) character()
+
+#' @export
+vec_cast.card.card <- function(x, to, ...) x
+
+#' @export
+vec_cast.card.character <- function(x, to, ...) {
+  rank <- substr(x, 1, nchar(x) - 1)
+  suit <- substr(x, nchar(x), nchar(x))
+  card(rank, suit)
+}
+
+#' @export
+vec_cast.character.card <- function(x, to, ...) format(x)
