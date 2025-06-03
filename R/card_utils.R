@@ -7,7 +7,6 @@
 #' card_suit(cards)
 #' @export
 card_suit <- function(x) {
-  # Dispatch to method based on class(x)
   UseMethod("card_suit")
 }
 
@@ -15,6 +14,12 @@ card_suit <- function(x) {
 card_suit.card <- function(x) {
   vctrs::field(x, "suit")
 }
+
+#' @export
+card_suit.default <- function(x) {
+  stop("`card_suit()` requires a `card` object.", call. = FALSE)
+}
+
 
 #' Extract the rank (value) of a card
 #'
@@ -33,6 +38,12 @@ card_rank.card <- function(x) {
   vctrs::field(x, "rank")
 }
 
+#' @export
+card_rank.default <- function(x) {
+  stop("`card_rank()` requires a `card` object.", call. = FALSE)
+}
+
+
 #' Is this card a face card (J, Q, or K)?
 #'
 #' @param x A `card` vector.
@@ -49,4 +60,9 @@ is_face_card <- function(x) {
 is_face_card.card <- function(x) {
   r <- vctrs::field(x, "rank")
   r %in% c("J", "Q", "K")
+}
+
+#' @export
+is_face_card.default <- function(x) {
+  stop("`is_face_card()` requires a `card` object.", call. = FALSE)
 }

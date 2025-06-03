@@ -29,14 +29,15 @@ new_card <- function(rank = character(), suit = character()) {
 #' card(c("A", "10", "Q"), c("♠", "♥", "♦"))
 #' card("7", "♣")
 card <- function(rank = character(), suit = character()) {
- valid_ranks <- c(as.character(2:10), "J", "Q", "K", "A")
- valid_suits <- c("♠", "♥", "♦", "♣")
+  valid_ranks <- c(as.character(2:10), "J", "Q", "K", "A")
+  valid_suits <- c("♠", "♥", "♦", "♣")
 
   vctrs::vec_assert(rank, character())
   vctrs::vec_assert(suit, character())
-  stopifnot(all(rank %in% allowed_ranks))
-  stopifnot(all(suit %in% allowed_suits))
+  stopifnot(all(rank %in% valid_ranks))
+  stopifnot(all(suit %in% valid_suits))
   stopifnot(length(rank) == length(suit))
 
   new_card(rank, suit)
+
 }
