@@ -15,7 +15,7 @@ deck_cards <- function(no_of_decks = 1) {
   }
 
   suits <- c("♠", "♥", "♦", "♣")
-  ranks <- c("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
+  ranks <- c(as.character(2:10), "J", "Q", "K", "A")
 
   all_cards <- paste0(rep(ranks, times = length(suits)), rep(suits, each = length(ranks)))
   full_deck <- rep(all_cards, no_of_decks)
