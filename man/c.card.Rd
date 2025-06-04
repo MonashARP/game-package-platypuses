@@ -4,12 +4,10 @@
 \alias{c.card}
 \title{Combine card vectors with c()}
 \usage{
-\method{c}{card}(..., recursive = FALSE)
+\method{c}{card}(...)
 }
 \arguments{
 \item{...}{One or more objects of class 'card'}
-
-\item{recursive}{(ignored)}
 }
 \value{
 A single 'card' vector containing all inputs

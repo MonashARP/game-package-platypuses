@@ -53,6 +53,8 @@ vec_ptype2.character.card <- function(x, y, ...) character()
 vec_cast.card.card <- function(x, to, ...) x
 
 #' @export
+#' @importFrom vctrs vec_cast
+
 vec_cast.card.character <- function(x, to, ...) {
   rank <- substr(x, 1, nchar(x) - 1)
   suit <- substr(x, nchar(x), nchar(x))

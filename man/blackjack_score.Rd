@@ -13,7 +13,7 @@ blackjack_score(hand)
 A numeric value representing the score of the hand.
 }
 \description{
-This function calculates the total score of a given Blackjack hand.
+This function calculates the total score of a given Blackjack hand using a C++ backend
 Aces are treated as 11 unless it causes the hand to bust, in which case
 they are treated as 1.
 }
