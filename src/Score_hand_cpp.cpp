@@ -14,7 +14,7 @@ int score_hand_cpp(CharacterVector ranks) {
     } else if (rank == "K" || rank == "Q" || rank == "J" || rank == "10") {
       total += 10;
     } else {
-      total += std::stoi(rank);
+      total += std::stoi(rank.get_cstring());  // ✅ Fix here
     }
   }
 
