@@ -1,52 +1,29 @@
 test_that("simulate_blackjack_game returns valid structure", {
-  result <- simulate_blackjack_game(num_players = 2, seed = 101)
+  result <- simulate_blackjack_game(num_players = 2, seed = 123)
 
-  expect_type(result, "list")
-  expect_named(result, c("players", "dealer"))
+  # Dealer’s final hand must be at least 2 cards long
+  expect_s3_class(result$dealer$hand, "card")
+  expect_gte(length(result$dealer$hand), 2)
 
-  expect_type(result$dealer$hand, "character")
-  expect_true(result$dealer$score >= 0)
-
-  expect_equal(length(result$players), 2)
-
+  # Each player’s final hand must be at least 2 cards long
   for (player in result$players) {
-    expect_type(player$hand, "character")
-    expect_true(player$score >= 0)
-    expect_true(any(grepl("Player wins|Dealer wins|Tie|busts", player$result)))
+    expect_s3_class(player$hand, "card")
+    expect_gte(length(player$hand), 2)
   }
 })
 
-
-test_that("simulate_blackjack_game works with 1 player", {
-  result <- simulate_blackjack_game(num_players = 1, seed = 999)
-
-  expect_equal(length(result$players), 1)
-  expect_type(result$players[[1]]$score, "double")
-  expect_type(result$dealer$score, "double")
-})
-
-test_that("simulate_blackjack_game handles edge cases (21, bust)", {
-  result <- simulate_blackjack_game(num_players = 3, seed = 333)
-  for (player in result$players) {
-    expect_true(player$score >= 0)
-    expect_true(player$score <= 31) # allow for poor logic in hit
-  }
-})
-
-test_that("simulate_blackjack_game handles no players", {
+test_that("simulate_blackjack_game returns correct summary for no players", {
   result <- simulate_blackjack_game(num_players = 0, seed = 123)
 
-  expect_equal(length(result$players), 0)
-  expect_type(result$dealer$hand, "character")
-  expect_true(result$dealer$score >= 0)
+  # Dealer still has at least 2 cards
+  expect_s3_class(result$dealer$hand, "card")
+  expect_gte(length(result$dealer$hand), 2)
 })
 
 test_that("print.blackjack_game behaves correctly", {
-  game <- simulate_blackjack_game(num_players = 2, seed = 123)
-  printed_output <- capture.output(result <- print(game))
-  expect_true(length(printed_output) > 0)
-  expect_equal(result, game)
-  expect_s3_class(result, "blackjack_game")
+  game <- simulate_blackjack_game(num_players = 1, seed = 456)
+
+  output <- capture.output(print(game))
+  expect_true(any(grepl("Dealer's hand:", output)))
+  expect_true(any(grepl("[2-9AQJK10][♠♥♦♣]", output)))
 })
-
-

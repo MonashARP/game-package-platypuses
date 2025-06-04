@@ -61,3 +61,41 @@ vec_cast.card.character <- function(x, to, ...) {
 
 #' @export
 vec_cast.character.card <- function(x, to, ...) format(x)
+
+#' Combine card vectors with c()
+#'
+#' @param ... One or more objects of class 'card'
+#' @param recursive (ignored)
+#' @return A single 'card' vector containing all inputs
+#' @export
+c.card <- function(..., recursive = FALSE) {
+  # Delegate to vctrs::vec_c so that fields stay aligned
+  vctrs::vec_c(!!!list(...))
+}
+
+#' Repair a card vector after a vctrs operation (subsetting, etc.)
+#'
+#' @param x A proxied data frame or record of fields rank + suit
+#' @param to   A prototype 'card' vector (ignored here)
+#' @return A new 'card' object with the same rank + suit fields as x
+#' @export
+vec_restore.card <- function(x, to, ...) {
+  # x already has fields 'rank' and 'suit'; just wrap them back into a card
+  new_card(vctrs::field(x, "rank"), vctrs::field(x, "suit"))
+}
+
+#' Expose the record data frame underlying a card
+#'
+#' @param x A 'card' object
+#' @return A tibble/data.frame with columns rank and suit
+#' @export
+vec_proxy.card <- function(x) {
+  # Create a simple data frame so that vctrs operations (like sorting, subsetting)
+  # know how to handle a card record
+  data.frame(
+    rank = vctrs::field(x, "rank"),
+    suit = vctrs::field(x, "suit"),
+    stringsAsFactors = FALSE
+  )
+}
+

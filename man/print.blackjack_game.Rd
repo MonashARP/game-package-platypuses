@@ -2,15 +2,13 @@
 % Please edit documentation in R/print_blackjack_game.R
 \name{print.blackjack_game}
 \alias{print.blackjack_game}
-\title{Print Method for blackjack_game Objects}
+\title{Print a Blackjack Game Summary}
 \usage{
 \method{print}{blackjack_game}(x, ...)
 }
 \arguments{
-\item{x}{An object of class 'blackjack_game'.}
-
-\item{...}{Additional arguments (ignored).}
+\item{x}{An object of class 'blackjack_game'}
 }
 \description{
-Nicely formats the output of a simulated Blackjack game.
+Print a Blackjack Game Summary
 }

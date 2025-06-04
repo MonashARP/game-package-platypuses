@@ -7,7 +7,7 @@
 is_soft_17(hand)
 }
 \arguments{
-\item{hand}{Character vector of cards (e.g. c("A♠", "6♣")).}
+\item{hand}{A \code{card} vector (e.g. \code{card(c("A","6"), c("♠","♣"))}).}
 }
 \value{
 Logical. TRUE if the hand is a soft 17, FALSE otherwise.
@@ -16,6 +16,6 @@ Logical. TRUE if the hand is a soft 17, FALSE otherwise.
 A soft 17 means the hand totals 17 with an Ace counted as 11.
 }
 \examples{
-is_soft_17(c("A♠", "6♣"))  # TRUE
-is_soft_17(c("10♠", "7♦")) # FALSE
+is_soft_17(card(c("A","6"), c("♠","♣")))   # TRUE
+is_soft_17(card(c("10","7"), c("♠","♦")))  # FALSE
 }

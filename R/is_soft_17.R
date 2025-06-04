@@ -2,15 +2,19 @@
 #'
 #' A soft 17 means the hand totals 17 with an Ace counted as 11.
 #'
-#' @param hand Character vector of cards (e.g. c("A♠", "6♣")).
+#' @param hand A `card` vector (e.g. `card(c("A","6"), c("♠","♣"))`).
 #'
 #' @return Logical. TRUE if the hand is a soft 17, FALSE otherwise.
 #' @export
 #'
 #' @examples
-#' is_soft_17(c("A♠", "6♣"))  # TRUE
-#' is_soft_17(c("10♠", "7♦")) # FALSE
+#' is_soft_17(card(c("A","6"), c("♠","♣")))   # TRUE
+#' is_soft_17(card(c("10","7"), c("♠","♦")))  # FALSE
 is_soft_17 <- function(hand) {
+  if (!inherits(hand, "card")) {
+    stop("`hand` must be a card vector.")
+  }
+
   ranks <- card_rank(hand)
   if (!"A" %in% ranks) return(FALSE)
 

@@ -15,9 +15,9 @@ card(rank = character(), suit = character())
 An object of class 'card'
 }
 \description{
-Constructs a custom card object with validated rank and suit fields.
+Constructs an S3 record (\code{rcrd}) object of class \code{"card"} with validated \code{rank} and \code{suit} fields.
+This function is the user-facing constructor for creating custom card objects.
 }
 \examples{
 card(c("A", "10", "Q"), c("♠", "♥", "♦"))
-card("7", "♣")
 }
