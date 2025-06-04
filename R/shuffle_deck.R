@@ -2,6 +2,6 @@
 #' @export
 shuffle_deck <- function() {
   deck <- deck_cards()
-  deck$cards  # return just the shuffled card vector
+  deck$cards
 }
 
