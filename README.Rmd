@@ -69,28 +69,6 @@ game$players[[1]]
 ```
 
 
-## Testing
-
-This package includes a full test suite using `testthat`. Run:
-
-```{r}
-devtools::test()
-```
-
-Tests include:
-
-- Return structure
-
-- Score correctness
-
-- Bust handling
-
-- Dealer soft 17 behavior
-
-- Edge cases like 0 players or 21
-
----
-
 ## Learn More
 
 For more details and examples, see the vignette or visit the package website [Blackjack](https://monasharp.github.io/game-package-platypuses/) on the **Get Started** page !

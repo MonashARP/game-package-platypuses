@@ -55,45 +55,6 @@ game$dealer
 game$players[[1]]
 ```
 
-## Testing
-
-This package includes a full test suite using `testthat`. Run:
-
-``` r
-devtools::test()
-#> ℹ Testing Blackjack
-#> ✔ | F W  S  OK | Context
-#> 
-#> ⠏ |          0 | deal_hand                                                      
-#> ✔ |          6 | deal_hand
-#> 
-#> ⠏ |          0 | deck_cards                                                     
-#> ✔ |          9 | deck_cards
-#> 
-#> ⠏ |          0 | score_player_dealer                                            
-#> ✔ |         10 | score_player_dealer
-#> 
-#> ⠏ |          0 | simulate_blackjack_game                                        
-#> ✔ |         26 | simulate_blackjack_game
-#> 
-#> ══ Results ═════════════════════════════════════════════════════════════════════
-#> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 51 ]
-```
-
-Tests include:
-
-- Return structure
-
-- Score correctness
-
-- Bust handling
-
-- Dealer soft 17 behavior
-
-- Edge cases like 0 players or 21
-
-------------------------------------------------------------------------
-
 ## Learn More
 
 For more details and examples, see the vignette or visit the package
