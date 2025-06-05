@@ -18,7 +18,8 @@
 #'
 #' @examples
 #' deck <- deck_cards()
-#' str(deck)
+#' print(deck)
+#' print(deck$cards)
 #' head(deck$cards)
 #'
 #' @export
