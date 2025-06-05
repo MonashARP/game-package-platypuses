@@ -1,8 +1,8 @@
 ---
-title: "Design Choices"
+title: "Design Decisions for the Blackjack Package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Design Choices}
+  %\VignetteIndexEntry{Design Decisions for the Blackjack Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,8 +14,74 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(Blackjack)
-```
+## Overview
 
-## Design Choices Behind the Blackjack Package
+This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500, involving code, documentation, testing, and design review.
+
+## Use of AI (LLM) Support
+
+We used ChatGPT throughout development for:
+
+-   Writing skeletons for user-facing functions (e.g. `simulate_blackjack_game`)
+
+-   Generating Roxygen documentation templates
+
+-   Creating unit test examples using `testthat`
+
+-   Clarifying base R and vctrs class behavior
+
+-   Debugging `devtools::check()` output
+
+All code was reviewed, modified, or rewritten by human contributors before integration. AI was used *as a coding assistant*, not for final implementation.
+
+## Limitations
+
+While the core game functionality works as intended, the current version of the package has several limitations:
+
+-   No support for Blackjack betting mechanics (e.g., betting chips, insurance, doubling down, splitting).
+
+-   Player AI is rule-based and not probabilistic or adaptive.
+
+-   Multiplayer mode is not implemented, only one player versus the dealer is supported.
+
+-   Only basic strategy is followed (e.g., hit below 17, stand otherwise).
+
+-   No support for saving game state or custom deck configurations.
+
+-   Limited test coverage for edge cases (e.g., all cards of one suit, consecutive face cards).
+
+-   No GUI or Shiny-based frontend.
+
+Unit tests are included for most user-facing functions, but edge cases (e.g. only face cards) are not fully covered.
+
+These limitations were consciously accepted in order to prioritize core game mechanics and code clarity.
+
+## Alternative Designs Considered
+
+We discussed and considered several alternative approaches:
+
+-   **Object system**: We considered using S4 or R6 classes to model cards and decks. Ultimately, we chose S3 with `vctrs::new_rcrd` for simplicity and better compatibility with the tidyverse.
+
+-   **Card representation**: Rather than use base R structures (e.g., lists or character vectors), we created a custom `card` class using `vctrs`. This allowed better type control and more intuitive printing and formatting.
+
+-   **Game strategy**: A full decision table for optimal Blackjack strategy was considered but excluded due to time and complexity. This could be added later.
+
+-   **Deck generation**: We briefly discussed external configuration files (e.g. JSON-based deck layouts) but chose not to include them to keep the package lightweight.
+
+-   **Exposing internal helpers**: We debated exporting low-level functions like `new_card()` and `score_hand_cpp()`, but kept them internal for encapsulation.
+
+## Summary
+
+We aimed to strike a balance between extensibility and simplicity. Our core design decisions were:
+
+-   Use S3 + vctrs to model cards with type safety
+
+-   Leverage C++ for scoring logic where performance matters
+
+-   Keep AI minimal and simulation linear
+
+-   Write unit tests to validate gameplay logic
+
+-   Document AI usage and limitations transparently
+
+This package provides a clean foundation for anyone looking to extend a Blackjack engine in R, whether to add features, connect with Shiny, or explore decision theory in gameplay.
