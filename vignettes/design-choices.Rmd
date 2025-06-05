@@ -106,7 +106,7 @@ While the core game functionality works as intended, the current version of the 
 
 -   Player AI is rule-based and not probabilistic or adaptive.
 
--   Multiplayer mode is not implemented, only one player versus the dealer is supported.
+-   Multiplayer is simulated with independent players, but no interactions or table-based dynamics are supported.
 
 -   Only basic strategy is followed (e.g., hit below 17, stand otherwise).
 
@@ -138,9 +138,7 @@ We discussed and considered several alternative approaches:
 
 We used ChatGPT to assist with writing documentation, creating unit test examples, debugging function errors, and drafting function implementations. Specifically, we provided prompts like:
 
--   *"card \<- function(rank = character(), suit = character()) {...}"*
-
-    *"I’m writing a custom vctrs class for a card object in my Blackjack R package. I want to store both the rank and suit of each card. I’m not sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the constructor. Which one is better when I need to store two fields (rank and suit) and later extract them separately in helper functions like card_rank() and card_suit()?”*
+-   *"card \<- function(rank = character(), suit = character()) {...}" "I’m writing a custom vctrs class for a card object in my Blackjack R package. I want to store both the rank and suit of each card. I’m not sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the constructor. Which one is better when I need to store two fields (rank and suit) and later extract them separately in helper functions like card_rank() and card_suit()?”*
 
 -   *"it is better to define the methods for using vector under the same .R file or seperate ?"*
 
