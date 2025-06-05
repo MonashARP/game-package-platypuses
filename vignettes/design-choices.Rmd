@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette describes how we designed the Blackjack R package. It explains our choices for function names, arguments, and how users interact with the package. We also cover how internal helper functions support clean and testable code, and why we didn’t use non-standard evaluation. Limitations and other designs we considered are discussed. We also explain how ChatGPT helped us with writing code, fixing errors, and writing documentation. This work was completed collaboratively as part of a group project for ETC4500 by Min Ni Hong, Shivesh Palanisamy, and Vaishnavi Amuda, involving code, documentation, testing, and design review.
+This vignette describes how we designed the Blackjack R package. It explains our choices for function names, arguments, and how users interact with the package. We also cover how internal helper functions support clean and testable code, and why we didn’t use non-standard evaluation. Limitations and other designs we considered are discussed. We also explain how ChatGPT helped us with writing code, fixing errors, and writing documentation. 
 
 ## Function name Design
 
