@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Design Choices Behind the Blackjack Package • Blackjack</title>
+<title>Design Decisions • Blackjack</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Design Choices Behind the Blackjack Package">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Design Decisions">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -34,7 +34,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/design-choices.html">Design Choices Behind the Blackjack Package</a></li>
+<li><a class="dropdown-item" href="../articles/design-choices.html">Design Decisions</a></li>
   </ul>
 </li>
       </ul>
@@ -55,7 +55,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Design Choices Behind the Blackjack Package</h1>
+      <h1>Design Decisions</h1>
             
       
 
@@ -64,9 +64,249 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://monasharp.github.io/game-package-platypuses">Blackjack</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>This vignette describes how we designed the Blackjack R package. It
+explains our choices for function names, arguments, and how users
+interact with the package. We also cover how internal helper functions
+support clean and testable code, and why we didn’t use non-standard
+evaluation. Limitations and other designs we considered are discussed.
+We also explain how ChatGPT helped us with writing code, fixing errors,
+and writing documentation.</p>
+</div>
+<div class="section level2">
+<h2 id="function-name-design">Function name Design<a class="anchor" aria-label="anchor" href="#function-name-design"></a>
+</h2>
+<p>We used simple and clear names for all functions so users can easily
+guess what they do — especially beginners.</p>
+<ul>
+<li><p><code><a href="../reference/card.html">card()</a></code> is the main constructor that creates a custom
+card vector. It checks that the ranks and suits are valid and uses a
+consistent format.</p></li>
+<li><p><code><a href="../reference/blackjack_score.html">blackjack_score()</a></code> calculates the total score of a
+hand using Blackjack rules.</p></li>
+<li><p><code><a href="../reference/simulate_blackjack_game.html">simulate_blackjack_game()</a></code> simulates a full
+multiplayer Blackjack game.</p></li>
+<li><p><code><a href="../reference/is_soft_17.html">is_soft_17()</a></code> checks if a hand is a soft 17, which
+means the hand totals 17 with an Ace counted as 11. This rule is
+important because the dealer must hit on a soft 17.</p></li>
+<li><p><code><a href="../reference/deck_cards.html">deck_cards()</a></code> creates a shuffled deck (or multiple
+decks).</p></li>
+<li><p><code><a href="../reference/deal_hand.html">deal_hand()</a></code> lets users draw a certain number of
+cards from a deck.</p></li>
+</ul>
+<p>We also included helper functions that work with <code>card</code>
+objects:</p>
+<ul>
+<li><p><code><a href="../reference/card_suit.html">card_suit()</a></code> extracts the suit (♠, ♥, ♦, ♣).</p></li>
+<li><p><code><a href="../reference/card_rank.html">card_rank()</a></code> extracts the rank (A, 2–10, J, Q,
+K).</p></li>
+<li><p><code><a href="../reference/is_face_card.html">is_face_card()</a></code> checks if a card is a face card (J,
+Q, or K).</p></li>
+</ul>
+<p>These helper functions assist users in identifying or extracting
+useful information from card vectors. They also use S3 method dispatch
+(<code>UseMethod</code>), making them flexible and robust. We provided
+default methods to deliver informative error messages when the input is
+not a valid <code>card</code> object.</p>
+</div>
+<div class="section level2">
+<h2 id="argument-design">Argument Design<a class="anchor" aria-label="anchor" href="#argument-design"></a>
+</h2>
+<p>We included arguments like rank, suit, num_players, and seed to give
+users flexibility and control over how the game runs.</p>
+<p>For <code><a href="../reference/card.html">card()</a></code>, the <code>rank</code> and <code>suit</code>
+arguments are essential. By requiring users to supply them, they can
+create any hand they want. We included validation to ensure:</p>
+<ul>
+<li><p>The ranks and suits are from a valid set.</p></li>
+<li><p>The two vectors are of equal length.</p></li>
+<li><p>This helps avoid silent bugs and provides clear
+feedback.</p></li>
+</ul>
+<p>We added default values where possible to make the functions
+beginner-friendly:</p>
+<ul>
+<li><p><code>num_players = 1</code> allows quick simulation of a
+single-player game.</p></li>
+<li><p><code>no_of_decks = 1</code> is the default in
+<code><a href="../reference/deck_cards.html">deck_cards()</a></code>, matching a standard Blackjack setup.</p></li>
+</ul>
+<p>These defaults help users try out the package immediately without
+needing to understand all the details first.</p>
+</div>
+<div class="section level2">
+<h2 id="user-workflow">User Workflow<a class="anchor" aria-label="anchor" href="#user-workflow"></a>
+</h2>
+<p>Here’s how a typical user would use our package step by step:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Create a deck</strong> Use <code><a href="../reference/deck_cards.html">deck_cards()</a></code> to
+generate one or more shuffled decks of cards for the game.</p></li>
+<li><p><strong>Deal cards</strong> Use <code><a href="../reference/deal_hand.html">deal_hand()</a></code> to draw
+cards from the deck for players or the dealer.</p></li>
+<li><p><strong>Create hands</strong> If needed, users can manually
+create hands using the <code><a href="../reference/card.html">card()</a></code> constructor to specify custom
+cards.</p></li>
+<li><p><strong>Score hands</strong> Use <code><a href="../reference/blackjack_score.html">blackjack_score()</a></code>
+to calculate the total Blackjack score of any hand, with proper Ace
+handling.</p></li>
+<li><p><strong>Check for rules like soft 17</strong> Use
+<code><a href="../reference/is_soft_17.html">is_soft_17()</a></code> to determine if a hand meets the soft 17
+condition.</p></li>
+<li><p><strong>Simulate a full game</strong> To run a complete round of
+Blackjack with multiple players and a dealer, use
+<code><a href="../reference/simulate_blackjack_game.html">simulate_blackjack_game()</a></code>.</p></li>
+<li><p><strong>Explore card details</strong> Use helper functions like
+<code><a href="../reference/card_rank.html">card_rank()</a></code>, <code><a href="../reference/card_suit.html">card_suit()</a></code>, and
+<code><a href="../reference/is_face_card.html">is_face_card()</a></code> to extract or check details about individual
+cards.</p></li>
+</ol>
+<p>This makes the package flexible for both simple uses and advanced
+customization — advanced users can build their own gameplay loop, while
+casual users can simulate a full game with a single function call.</p>
+</div>
+<div class="section level2">
+<h2 id="use-of-internal-modular-functions">Use of internal modular functions<a class="anchor" aria-label="anchor" href="#use-of-internal-modular-functions"></a>
+</h2>
+<p>We included a few internal helper functions to keep our code clean
+and organised:</p>
+<ul>
+<li><p><code>new_card()</code> is used inside the main
+<code><a href="../reference/card.html">card()</a></code> function to build the card object. It’s not exported
+because it skips input checks, so it should only be used safely inside
+our package.</p></li>
+<li><p><code>draw_cards()</code> is defined inside
+<code><a href="../reference/simulate_blackjack_game.html">simulate_blackjack_game()</a></code> to handle drawing cards from the
+deck. We kept it internal because it’s only useful during the
+simulation.</p></li>
+</ul>
+<p>By breaking our code into smaller pieces like this, it’s easier to
+test, fix, or update one part without affecting everything else. This
+modular design also helps us reuse the same logic in different places
+and keeps the main functions simple and easy to understand.</p>
+</div>
+<div class="section level2">
+<h2 id="use-of-non-standard-evaluation-nse">Use of Non-Standard Evaluation (NSE)<a class="anchor" aria-label="anchor" href="#use-of-non-standard-evaluation-nse"></a>
+</h2>
+<p>NSE was not used in this package. We chose standard evaluation for
+simplicity, transparency, and better compatibility with testing and
+debugging workflows.</p>
+</div>
+<div class="section level2">
+<h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+</h2>
+<p>While the core game functionality works as intended, the current
+version of the package has several limitations:</p>
+<ul>
+<li><p>No support for Blackjack betting mechanics (e.g., betting chips,
+insurance, doubling down, splitting).</p></li>
+<li><p>Player AI is rule-based and not probabilistic or
+adaptive.</p></li>
+<li><p>Multiplayer is simulated with independent players, but no
+interactions or table-based dynamics are supported.</p></li>
+<li><p>Only basic strategy is followed (e.g., hit below 17, stand
+otherwise).</p></li>
+<li><p>No support for saving game state or custom deck
+configurations.</p></li>
+<li><p>Most main functions are tested, but not all edge cases are
+covered yet (e.g., all cards of one suit, consecutive face
+cards).</p></li>
+<li><p>No GUI or Shiny-based frontend.</p></li>
+</ul>
+<p>Unit tests are included for most user-facing functions, but edge
+cases (e.g. only face cards) are not fully covered.</p>
+<p>These limitations were consciously accepted in order to prioritize
+core game mechanics and code clarity.</p>
+</div>
+<div class="section level2">
+<h2 id="alternative-designs-considered">Alternative Designs Considered<a class="anchor" aria-label="anchor" href="#alternative-designs-considered"></a>
+</h2>
+<p>We discussed and considered several alternative approaches:</p>
+<ul>
+<li><p><strong>Object system</strong>: We considered using S4 or R6
+classes to model cards and decks. Ultimately, we chose S3 with
+<code><a href="https://vctrs.r-lib.org/reference/new_rcrd.html" class="external-link">vctrs::new_rcrd</a></code> for simplicity and better compatibility
+with the tidyverse.</p></li>
+<li><p><strong>Card representation</strong>: Rather than use base R
+structures (e.g., lists or character vectors), we created a custom
+<code>card</code> class using <code>vctrs</code>. This allowed better
+type control and more intuitive printing and formatting.</p></li>
+<li><p><strong>Game strategy</strong>: A full decision table for optimal
+Blackjack strategy was considered but excluded due to time and
+complexity. This could be added later.</p></li>
+<li><p><strong>Deck generation</strong>: We briefly discussed external
+configuration files (e.g. JSON-based deck layouts) but chose not to
+include them to keep the package lightweight.</p></li>
+<li><p><strong>Exposing internal helpers</strong>: We debated exporting
+low-level functions like <code>new_card()</code> and
+<code>score_hand_cpp()</code>, but kept them internal for
+encapsulation.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="use-of-ai-llm-support">Use of AI (LLM) Support<a class="anchor" aria-label="anchor" href="#use-of-ai-llm-support"></a>
+</h2>
+<p>We used ChatGPT to assist with writing documentation, creating unit
+test examples, debugging function errors, and drafting function
+implementations. Specifically, we provided prompts like:</p>
+<ul>
+<li><p><em>“card &lt;- function(rank = character(), suit = character())
+{…}” “I’m writing a custom vctrs class for a card object in my Blackjack
+R package. I want to store both the rank and suit of each card. I’m not
+sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the
+constructor. Which one is better when I need to store two fields (rank
+and suit) and later extract them separately in helper functions like
+card_rank() and card_suit()?”</em></p></li>
+<li><p><em>“it is better to define the methods for using vector under
+the same .R file or seperate ?”</em></p></li>
+<li><p><em>“I’m trying to call a C++ function from R using .Call(), but
+I get the error: ‘_Blackjack_score_hand_cpp’ not available for .Call()
+for package ‘Blackjack’. What does this mean and how can I fix it? I’m
+using Rcpp and have the C++ file inside the src folder.”</em></p></li>
+<li><p><em>“I’m getting a <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> warning:
+‘Undocumented code objects: vec_ptype2.card.card’. I don’t want to
+export this internal method. Is there a way to suppress this or document
+it minimally to pass CRAN-style checks?”</em></p></li>
+<li><p><em>“I’m using a custom S3 class with vctrs in my Blackjack R
+package. When I run <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code>, I get a warning
+about undocumented code objects
+like <code>vec_ptype2.card.character</code>. I already marked these
+functions with <code>@noRd</code>. Why is the warning still showing, and
+how can I fix it properly without exporting them?”</em></p></li>
+<li><p><em>“I created a custom card class using vctrs::new_rcrd(). I
+also wrote helper functions like card_suit() and card_rank(). Can you
+show me how to write basic unit tests using testthat to check that these
+functions return the correct output and throw informative errors for
+non-card inputs?”</em></p></li>
+</ul>
+<p>These responses helped us understand best practices for structuring
+our game package, especially when using vctrs and Rcpp. We directly used
+the suggestions to write clearer documentation, fix warnings during
+package checks, and improve test coverage. In particular, ChatGPT guided
+us in resolving technical issues (e.g., .Call() errors), designing
+internal methods, and writing unit tests that follow tidyverse and CRAN
+standards. This support improved our package quality and development
+workflow.</p>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>We aimed to strike a balance between extensibility and simplicity.
+Our core design decisions were:</p>
+<ul>
+<li><p>Use S3 + vctrs to model cards with type safety</p></li>
+<li><p>Leverage C++ for scoring logic where performance matters</p></li>
+<li><p>Keep AI minimal and simulation linear</p></li>
+<li><p>Write unit tests to validate gameplay logic</p></li>
+<li><p>Document AI usage and limitations transparently</p></li>
+</ul>
+<p>This package provides a clean foundation for anyone looking to extend
+a Blackjack engine in R, whether to add features, connect with Shiny, or
+explore decision theory in gameplay.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

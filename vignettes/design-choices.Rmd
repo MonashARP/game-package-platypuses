@@ -94,7 +94,7 @@ We included a few internal helper functions to keep our code clean and organised
 
 By breaking our code into smaller pieces like this, it's easier to test, fix, or update one part without affecting everything else. This modular design also helps us reuse the same logic in different places and keeps the main functions simple and easy to understand.
 
-### Use of Non-Standard Evaluation (NSE)
+## Use of Non-Standard Evaluation (NSE)
 
 NSE was not used in this package. We chose standard evaluation for simplicity, transparency, and better compatibility with testing and debugging workflows.
 
