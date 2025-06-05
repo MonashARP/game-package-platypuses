@@ -31,6 +31,12 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/Blackjack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/design-choices.html">Design Choices Behind the Blackjack Package</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -105,19 +111,16 @@ hitting on soft 17.</p>
 <code class="sourceCode R"><span><span class="co"># Simulate a round with 2 players using a set seed to ensure repeatable results</span></span>
 <span><span class="va">game</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_blackjack_game.html">simulate_blackjack_game</a></span><span class="op">(</span>num_players <span class="op">=</span> <span class="fl">2</span>, seed <span class="op">=</span> <span class="fl">375</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">game</span><span class="op">)</span></span>
-<span><span class="co">#&gt; === Dealer ===</span></span>
-<span><span class="co">#&gt; Hand: 3♦ 4♦ 2♠ 4♣ Q♦ </span></span>
-<span><span class="co">#&gt; Score: 23 </span></span>
+<span><span class="co">#&gt; Dealer's hand:  4♦ 5♦ K♦ </span></span>
+<span><span class="co">#&gt; Dealer's score:  19 </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; === Player 1 ===</span></span>
-<span><span class="co">#&gt; Hand: A♠ 2♥ 5♣ </span></span>
-<span><span class="co">#&gt; Score: 18 </span></span>
-<span><span class="co">#&gt; Result: Dealer busts! Player wins. </span></span>
+<span><span class="co">#&gt; Player 1 hand: 2♠ 3♥ 6♣ 9♦</span></span>
+<span><span class="co">#&gt; Player 1 score: 20</span></span>
+<span><span class="co">#&gt; Player 1 result: Player wins!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; === Player 2 ===</span></span>
-<span><span class="co">#&gt; Hand: 2♦ 7♦ 8♦ </span></span>
-<span><span class="co">#&gt; Score: 17 </span></span>
-<span><span class="co">#&gt; Result: Dealer busts! Player wins.</span></span></code></pre></div>
+<span><span class="co">#&gt; Player 2 hand: 3♦ 8♦ 3♠ 5♣</span></span>
+<span><span class="co">#&gt; Player 2 score: 19</span></span>
+<span><span class="co">#&gt; Player 2 result: Tie!</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="accessing-player-and-dealer-results">Accessing Player and Dealer Results<a class="anchor" aria-label="anchor" href="#accessing-player-and-dealer-results"></a>
@@ -130,13 +133,14 @@ indexing:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">game</span><span class="op">$</span><span class="va">players</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $hand</span></span>
-<span><span class="co">#&gt; [1] "A♠" "2♥" "5♣"</span></span>
+<span><span class="co">#&gt; &lt;card[4]&gt;</span></span>
+<span><span class="co">#&gt; [1] 2♠ 3♥ 6♣ 9♦</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $score</span></span>
-<span><span class="co">#&gt; [1] 18</span></span>
+<span><span class="co">#&gt; [1] 20</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $result</span></span>
-<span><span class="co">#&gt; [1] "Dealer busts! Player wins."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Player wins!"</span></span></code></pre></div>
 <p>You can change the number in players[[x]] to inspect other players
 (e.g., players[[2]] for Player 2).</p>
 <ul>
@@ -145,10 +149,11 @@ indexing:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">game</span><span class="op">$</span><span class="va">dealer</span></span>
 <span><span class="co">#&gt; $hand</span></span>
-<span><span class="co">#&gt; [1] "3♦" "4♦" "2♠" "4♣" "Q♦"</span></span>
+<span><span class="co">#&gt; &lt;card[3]&gt;</span></span>
+<span><span class="co">#&gt; [1] 4♦ 5♦ K♦</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $score</span></span>
-<span><span class="co">#&gt; [1] 23</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 19</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="checking-for-soft-17">Checking for Soft 17<a class="anchor" aria-label="anchor" href="#checking-for-soft-17"></a>
@@ -161,9 +166,9 @@ stand during gameplay.</p>
 <code><a href="../reference/simulate_blackjack_game.html">simulate_blackjack_game()</a></code>, but you can also test hands
 manually:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_soft_17.html">is_soft_17</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A♠"</span>, <span class="st">"6♦"</span><span class="op">)</span><span class="op">)</span>     </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_soft_17.html">is_soft_17</a></span><span class="op">(</span><span class="fu"><a href="../reference/card.html">card</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"6"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"♠"</span>,<span class="st">"♣"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
-<span><span class="fu"><a href="../reference/is_soft_17.html">is_soft_17</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"10♣"</span>, <span class="st">"7♦"</span><span class="op">)</span><span class="op">)</span>    </span>
+<span><span class="fu"><a href="../reference/is_soft_17.html">is_soft_17</a></span><span class="op">(</span><span class="fu"><a href="../reference/card.html">card</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"10"</span>,<span class="st">"7"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"♠"</span>,<span class="st">"♦"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p>The guide above demonstrates how to use the <code>Blackjack</code>
 package to calculate the score from a round based on the cards held by

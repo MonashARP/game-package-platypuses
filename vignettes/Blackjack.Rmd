@@ -81,8 +81,8 @@ The helper function `is_soft_17()` checks whether a hand is considered a "soft 1
 This function is used internally by `simulate_blackjack_game()`, but you can also test hands manually:
 
 ```{r}
-is_soft_17(c("A♠", "6♦"))     
-is_soft_17(c("10♣", "7♦"))    
+is_soft_17(card(c("A","6"), c("♠","♣")))
+is_soft_17(card(c("10","7"), c("♠","♦")))
 ```
 
 The guide above demonstrates how to use the `Blackjack` package to calculate the score from a round based on the cards held by the player and the dealer. It also shows how helper functions can be used to better understand the value of each hand and the rules applied during the game.
