@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 You can install the development version of the package using `devtools`:
 
-```{r}
+```{r eval=FALSE}
 # Install devtools if not already installed
 install.packages("devtools")
 

@@ -15,36 +15,9 @@ You can install the development version of the package using `devtools`:
 ``` r
 # Install devtools if not already installed
 install.packages("devtools")
-#> Installing package into '/private/var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T/RtmpAnJMos/temp_libpath3eb1111f142f'
-#> (as 'lib' is unspecified)
-#> 
-#> The downloaded binary packages are in
-#>  /var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T//RtmpceTDFn/downloaded_packages
 
 # Install Blackjack from GitHub
 devtools::install_github("MonashARP/game-package-platypuses")
-#> Downloading GitHub repo MonashARP/game-package-platypuses@HEAD
-#> rlang    (1.1.5  -> 1.1.6 ) [CRAN]
-#> cli      (3.6.4  -> 3.6.5 ) [CRAN]
-#> utf8     (1.2.4  -> 1.2.5 ) [CRAN]
-#> pillar   (1.10.1 -> 1.10.2) [CRAN]
-#> generics (0.1.3  -> 0.1.4 ) [CRAN]
-#> Installing 5 packages: rlang, cli, utf8, pillar, generics
-#> Installing packages into '/private/var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T/RtmpAnJMos/temp_libpath3eb1111f142f'
-#> (as 'lib' is unspecified)
-#> 
-#> The downloaded binary packages are in
-#>  /var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T//RtmpceTDFn/downloaded_packages
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/private/var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T/RtmpceTDFn/remotes86f948f1b51c/MonashARP-game-package-platypuses-3f815eb/DESCRIPTION’ ... OK
-#> * preparing ‘Blackjack’:
-#> * checking DESCRIPTION meta-information ... OK
-#> * cleaning src
-#> * checking for LF line-endings in source and make files and shell scripts
-#> * checking for empty or unneeded directories
-#> * building ‘Blackjack_0.0.1.tar.gz’
-#> Installing package into '/private/var/folders/0f/278m3zyd4p1gctcvm2dk_j0m0000gn/T/RtmpAnJMos/temp_libpath3eb1111f142f'
-#> (as 'lib' is unspecified)
 ```
 
 ## Features
