@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500, involving code, documentation, testing, and design review.
+This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500 by Min Ni Hong, Shivesh Palanisamy, and Vaishnavi Amuda, involving code, documentation, testing, and design review.
 
 ## Function name Design
 
@@ -88,7 +88,7 @@ To run a complete round of Blackjack with multiple players and a dealer, use `si
 7. **Explore card details**
 Use helper functions like `card_rank()`, `card_suit()`, and `is_face_card()` to extract or check details about individual cards.
 
-This modular design allows users to either simulate a full game or interact with specific components of the game logic independently. For example, someone could use just `card()` and `blackjack_score()` to build a custom scoring tool without running the full game. This makes the package flexible for both simple uses and advanced customization.
+This makes the package flexible for both simple uses and advanced customization — advanced users can build their own gameplay loop, while casual users can simulate a full game with a single function call.
 
 ## Use of internal modular functions
 
@@ -99,6 +99,11 @@ We included a few internal helper functions to keep our code clean and organised
 - `draw_cards()` is defined inside `simulate_blackjack_game()` to handle drawing cards from the deck. We kept it internal because it's only useful during the simulation.
 
 By breaking our code into smaller pieces like this, it's easier to test, fix, or update one part without affecting everything else. This modular design also helps us reuse the same logic in different places and keeps the main functions simple and easy to understand.
+
+### Use of Non-Standard Evaluation (NSE)
+
+NSE was not used in this package. We chose standard evaluation for simplicity, transparency, and better compatibility with testing and debugging workflows.
+
 
 ## Limitations
 
@@ -136,6 +141,7 @@ We discussed and considered several alternative approaches:
 
 -   **Exposing internal helpers**: We debated exporting low-level functions like `new_card()` and `score_hand_cpp()`, but kept them internal for encapsulation.
 
+
 ## Use of AI (LLM) Support
 
 We used ChatGPT to assist with writing documentation, creating unit test examples, debugging function errors, and drafting function implementations. Specifically, we provided prompts like:
@@ -145,11 +151,7 @@ We used ChatGPT to assist with writing documentation, creating unit test example
   
 - *"it is better to define the methods for using vector under the same .R file or seperate ?"*
 
-- *""I'm trying to call a C++ function from R using .Call(), but I get the error: '_Blackjack_score_hand_cpp' not available for .Call() for package 'Blackjack'. What does this mean and how can I fix it? I'm using Rcpp and have the C++ file inside the src folder.""*
-
-
-
-
+- *"I'm trying to call a C++ function from R using .Call(), but I get the error: '_Blackjack_score_hand_cpp' not available for .Call() for package 'Blackjack'. What does this mean and how can I fix it? I'm using Rcpp and have the C++ file inside the src folder."*
 
 ## Summary
 
