@@ -1,8 +1,8 @@
 ---
-title: "Design Decisions for the Blackjack Package"
+title: "Design Decisions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Design Decisions for the Blackjack Package}
+  %\VignetteIndexEntry{Design Decisions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500 by Min Ni Hong, Shivesh Palanisamy, and Vaishnavi Amuda, involving code, documentation, testing, and design review.
+This vignette describes how we designed the Blackjack R package. It explains our choices for function names, arguments, and how users interact with the package. We also cover how internal helper functions support clean and testable code, and why we didn’t use non-standard evaluation. Limitations and other designs we considered are discussed. We also explain how ChatGPT helped us with writing code, fixing errors, and writing documentation. This work was completed collaboratively as part of a group project for ETC4500 by Min Ni Hong, Shivesh Palanisamy, and Vaishnavi Amuda, involving code, documentation, testing, and design review.
 
 ## Function name Design
 
