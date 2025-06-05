@@ -113,12 +113,17 @@ card_value <- function(x) {
 #' @export
 card_value.card <- function(x) {
   rank <- card_rank(x)
-  dplyr::case_when(
-    rank %in% as.character(2:10) ~ as.numeric(rank),
-    rank %in% c("J", "Q", "K") ~ 10,
-    rank == "A" ~ 11
+
+  as.numeric(
+    dplyr::case_when(
+      rank == "A" ~ "11",
+      rank %in% c("K", "Q", "J") ~ "10",
+      rank %in% as.character(2:10) ~ rank,
+      TRUE ~ NA_character_
+    )
   )
 }
+
 
 #' @export
 card_value.default <- function(x) {

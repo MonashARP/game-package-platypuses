@@ -27,7 +27,8 @@ used as the starting point for dealing hands in the game.
 }
 \examples{
 deck <- deck_cards()
-str(deck)
+print(deck)
+print(deck$cards)
 head(deck$cards)
 
 }
