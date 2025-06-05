@@ -91,9 +91,9 @@ card_value(cards)
 
 ## Team Contributions
 
-This package was collaboratively developed by *Min Hong*, *Vaishnavi Amuda*, and *Shivesh Krishna*.
+This package was collaboratively developed by *Min Ni Hong*, *Vaishnavi Amuda*, and *Shivesh Krishna*.
 
--   *Min Hong* implemented the foundational components of the package’s card system. This included designing the custom `card` constructor, implementing essential `vctrs` methods (such as `vec_ptype2()`, `vec_cast()`, and `format()`), and writing unit tests to ensure these new structures behaved consistently. They also contributed the first section of the design vignette, explaining the motivation behind creating a dedicated `card` class.
+-   *Min Ni Hong* implemented the foundational components of the package’s card system. This included designing the custom `card` constructor, implementing essential `vctrs` methods (such as `vec_ptype2()`, `vec_cast()`, and `format()`), and writing unit tests to ensure these new structures behaved consistently. They also contributed the first section of the design vignette, explaining the motivation behind creating a dedicated `card` class.
 
 -   *Vaishnavi Amuda* focused on extending the functionality of the new card class through custom generics. They implemented functions such as `card_suit()`, `card_value()`, and related `.card` methods, and also adapted a few existing helpers like `build_full_deck()` to make use of the new constructor. Comprehensive tests were written for each generic, and they authored the second section of the design vignette covering why generics were used and how they enhance extensibility.
 
@@ -110,4 +110,4 @@ To install and run the package locally:
 devtools::load_all()
 ```
 
-For a detailed explanation of internal design decisions, C++ and vctrs integration, and future considerations, please refer to the [Design Vignette](design-choices.html).
+For a detailed explanation of internal design decisions, C++ and vctrs integration, and future considerations, please refer to the [Design decisions behind the Blackjack package](https://monasharp.github.io/game-package-platypuses/articles/design-choices.html).
