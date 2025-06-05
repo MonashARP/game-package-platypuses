@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 You can install the development version of the package using `devtools`:
 
-```{r, eval = FALSE}
+```{r}
 # Install devtools if not already installed
 install.packages("devtools")
 
@@ -54,11 +54,14 @@ devtools::install_github("MonashARP/game-package-platypuses")
 
 ## Example
 
-```{r, eval= FALSE}
+```{r}
 library(Blackjack)
 
+# Set seed for reproducibility
+set.seed(123)
+
 # Simulate a 2-player game
-game <- simulate_blackjack_game(num_players = 2, seed = 123)
+game <- simulate_blackjack_game(num_players = 2)
 
 # Dealer results
 game$dealer
