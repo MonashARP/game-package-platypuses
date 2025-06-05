@@ -112,7 +112,7 @@ While the core game functionality works as intended, the current version of the 
 
 -   No support for saving game state or custom deck configurations.
 
--   Limited test coverage for edge cases (e.g., all cards of one suit, consecutive face cards).
+-   Most main functions are tested, but not all edge cases are covered yet (e.g., all cards of one suit, consecutive face cards).
 
 -   No GUI or Shiny-based frontend.
 
@@ -138,18 +138,17 @@ We discussed and considered several alternative approaches:
 
 We used ChatGPT to assist with writing documentation, creating unit test examples, debugging function errors, and drafting function implementations. Specifically, we provided prompts like:
 
--   *"card \<- function(rank = character(), suit = character()) {...}" "I’m writing a custom vctrs class for a card object in my Blackjack R package. I want to store both the rank and suit of each card. I’m not sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the constructor. Which one is better when I need to store two fields (rank and suit) and later extract them separately in helper functions like card_rank() and card_suit()?”*
+-   *"card \<- function(rank = character(), suit = character()) {...}" “I’m writing a custom vctrs class for a card object in my Blackjack R package. I want to store both the rank and suit of each card. I’m not sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the constructor. Which one is better when I need to store two fields (rank and suit) and later extract them separately in helper functions like card_rank() and card_suit()?”*
 
--   *"it is better to define the methods for using vector under the same .R file or seperate ?"*
+-   *“it is better to define the methods for using vector under the same .R file or seperate ?”*
 
--   *"I'm trying to call a C++ function from R using .Call(), but I get the error: '\_Blackjack_score_hand_cpp' not available for .Call() for package 'Blackjack'. What does this mean and how can I fix it? I'm using Rcpp and have the C++ file inside the src folder."*
+-   *“I'm trying to call a C++ function from R using .Call(), but I get the error: '\_Blackjack_score_hand_cpp' not available for .Call() for package 'Blackjack'. What does this mean and how can I fix it? I'm using Rcpp and have the C++ file inside the src folder.”*
 
 -   *“I’m getting a `devtools::check()` warning: ‘Undocumented code objects: vec_ptype2.card.card’. I don’t want to export this internal method. Is there a way to suppress this or document it minimally to pass CRAN-style checks?”*
 
 -   *“I’m using a custom S3 class with vctrs in my Blackjack R package. When I run `devtools::check()`, I get a warning about undocumented code objects like `vec_ptype2.card.character`. I already marked these functions with `@noRd`. Why is the warning still showing, and how can I fix it properly without exporting them?”*
 
--   *“I added a `LICENSE` and `LICENSE.md` to my package, but `devtools::check()` gives me a NOTE saying: ‘License components which are templates and need "+ file LICENSE": MIT’. What does this mean? How do I properly specify the MIT license in my DESCRIPTION file and what should I do with the LICENSE files?”*
-
+- **
 ## Summary
 
 We aimed to strike a balance between extensibility and simplicity. Our core design decisions were:
