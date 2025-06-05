@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500, involving code, documentation, testing, and design review.
+This vignette documents the major design choices made while developing the Blackjack R package, including AI usage, limitations, and alternative implementations considered. This work was completed collaboratively as part of a group project for ETC4500 by Min Ni Hong, Shivesh Palanisamy, and Vaishnavi Amuda, involving code, documentation, testing, and design review.
 
 ## Use of AI (LLM) Support
 
@@ -69,6 +69,56 @@ We discussed and considered several alternative approaches:
 -   **Deck generation**: We briefly discussed external configuration files (e.g. JSON-based deck layouts) but chose not to include them to keep the package lightweight.
 
 -   **Exposing internal helpers**: We debated exporting low-level functions like `new_card()` and `score_hand_cpp()`, but kept them internal for encapsulation.
+
+## Function Naming, Argument Design, and Workflow
+
+### Function Names
+
+Function names in this package were chosen to be concise, descriptive, and consistent with R naming conventions and Blackjack terminology. Examples include:
+
+-   `simulate_blackjack_game()` clearly conveys that the function simulates one complete round of Blackjack.
+
+-   `card_suit()` and `card_value()` use the `card_` prefix to indicate they operate on the custom `card` vector.
+
+-   `deal_cards()` and `score_hand()` reflect their purpose directly and avoid ambiguity.
+
+### Argument Design
+
+Arguments were kept intuitive and user-friendly:
+
+-   `card(rank, suit)` follows natural card structure and validates input.
+
+-   Functions accept base types (e.g., character, numeric) where possible to minimize the learning curve.
+
+-   Defaults are used where appropriate to allow partial specification or empty input (e.g., `card()` creates an empty card vector).
+
+### User Workflow
+
+We designed the API with a natural workflow in mind:
+
+1.  **Card creation**: Using `card()` to build a hand or deck.
+
+2.  **Game play**: Functions like `deal_cards()` and `simulate_blackjack_game()` handle turn-taking and rules.
+
+3.  **Evaluation**: Functions like `score_hand()` and `card_value()` extract outcomes.
+
+4.  **Inspection**: Users can print cards, check suits/ranks, or test card properties.
+
+This modularity allows advanced users to build their own gameplay loop, or casual users to run a simulation with one function call.
+
+### Use of Internal Modular Functions
+
+We defined several helpers that are intentionally kept internal:
+
+-   `new_card()` constructs `card` objects without validation and is used internally by `card()`.
+
+-   `score_hand_cpp()` wraps the C++ scoring logic and is not exported to avoid misusage.
+
+This helps maintain encapsulation and ensures users interact only with the stable API surface.
+
+### Use of Non-Standard Evaluation (NSE)
+
+NSE was not used in this package. We chose standard evaluation for simplicity, transparency, and better compatibility with testing and debugging workflows.
 
 ## Summary
 
