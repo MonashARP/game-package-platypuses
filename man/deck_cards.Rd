@@ -2,20 +2,32 @@
 % Please edit documentation in R/deck_of_cards.R
 \name{deck_cards}
 \alias{deck_cards}
-\title{Create a Blackjack Deck}
+\title{Create a Shuffled Blackjack Deck}
 \usage{
 deck_cards(no_of_decks = 1)
 }
 \arguments{
-\item{no_of_decks}{Number of standard decks to include (default is 1)}
+\item{no_of_decks}{Integer. Number of standard decks to include (default is 1).}
 }
 \value{
-An object of class blackjack_deck, which is a list containing the shuffled cards and number of decks.
+An object of class \code{"blackjack_deck"}, which is a list with two elements:
+\describe{
+\item{cards}{A shuffled \code{card} vector.}
+\item{decks}{The number of decks used to create the full shoe.}
+}
 }
 \description{
-Generates a shuffled deck used in Blackjack.
-You can specify the number of standard 52-card decks to include.
+Generates a shuffled deck of cards for use in Blackjack games.
+Supports combining multiple standard 52-card decks into one.
+}
+\details{
+Each card is represented using the custom \code{card} vector class. The returned object includes
+a shuffled vector of cards and metadata about the number of decks used. This function is typically
+used as the starting point for dealing hands in the game.
 }
 \examples{
 deck <- deck_cards()
+str(deck)
+head(deck$cards)
+
 }

@@ -2,20 +2,24 @@
 % Please edit documentation in R/card_utils.R
 \name{is_face_card}
 \alias{is_face_card}
-\title{Is this card a face card (J, Q, or K)?}
+\title{Identify Face Cards}
 \usage{
 is_face_card(x)
 }
 \arguments{
-\item{x}{A \code{card} vector.}
+\item{x}{A \code{card} vector created using \code{card()}.}
 }
 \value{
-A logical vector (TRUE if rank is "J", "Q", or "K").
+A logical vector: \code{TRUE} for face cards, \code{FALSE} otherwise.
 }
 \description{
-Is this card a face card (J, Q, or K)?
+Determines whether each card in a \code{card} vector is a face card (J, Q, or K).
+}
+\details{
+Returns a logical vector indicating whether each card is a face card. Non-card inputs will throw an error.
 }
 \examples{
 cards <- card(c("J", "5", "Q"), c("♣", "♦", "♥"))
-is_face_card(cards)  # TRUE, FALSE, TRUE
+is_face_card(cards)  # TRUE FALSE TRUE
+
 }

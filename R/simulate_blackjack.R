@@ -1,16 +1,28 @@
-#' Simulate a Multiplayer Game of Blackjack
+#' Simulate a Multiplayer Blackjack Game
 #'
-#' Simulates a round of Blackjack for multiple players against a dealer.
-#' Players use a basic decision strategy to hit or stand.
-#' The dealer follows standard rules and hits on soft 17.
+#' This function simulates a complete round of Blackjack between one or more players and a dealer.
+#' Each player is dealt two cards and follows a simple decision strategy (e.g., hit on low scores).
+#' The dealer plays according to standard rules, including hitting on soft 17.
 #'
-#' @param num_players Integer. Number of players (default is 1).
-#' @param seed Optional integer to set random seed for reproducibility.
-#' @return A list containing each player's hand, score, result, and the dealer's final hand and score.
-#' @importFrom stats runif
-#' @export
+#' @param num_players Integer. Number of players in the game (default is 1).
+#' @param seed Optional integer. If provided, sets the random seed for reproducibility.
+#'
+#' @details
+#' Each player acts independently and uses a basic AI decision rule:
+#' hit below 12, stand at 17+, and probabilistic decisions between 12–16.
+#' The dealer continues hitting until reaching 17 or more, and hits on a soft 17.
+#'
+#' @return A structured list of class `"blackjack_game"` containing:
+#' \describe{
+#'   \item{players}{A list of player results. Each contains the player's hand, final score, and outcome message.}
+#'   \item{dealer}{A list with the dealer's final hand and score.}
+#' }
+#'
 #' @examples
 #' simulate_blackjack_game(num_players = 2, seed = 123)
+#'
+#' @importFrom stats runif
+#' @export
 simulate_blackjack_game <- function(num_players = 1, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 

@@ -2,22 +2,26 @@
 % Please edit documentation in R/score_player_dealer.R
 \name{blackjack_score}
 \alias{blackjack_score}
-\title{Score a Blackjack Hand}
+\title{Calculate the Score of a Blackjack Hand}
 \usage{
 blackjack_score(hand)
 }
 \arguments{
-\item{hand}{A \code{card} vector (e.g., \code{card(c("A","10"), c("♠","♦"))}).}
+\item{hand}{A \code{card} vector representing the hand to be scored (e.g., \code{card(c("A","10"), c("♠","♦"))}).}
 }
 \value{
-A numeric value representing the score of the hand.
+A numeric value between 2 and 31 representing the total score of the hand.
 }
 \description{
-This function calculates the total score of a given Blackjack hand using a C++ backend
-Aces are treated as 11 unless it causes the hand to bust, in which case
-they are treated as 1.
+This function computes the total value of a Blackjack hand using a C++ backend for efficient scoring.
+Aces are treated as 11 unless doing so causes the hand to bust, in which case they are treated as 1.
+}
+\details{
+This function calls an underlying C++ function (\code{score_hand_cpp}) for performance.
+It automatically adjusts Ace values and supports hands of any length.
 }
 \examples{
-blackjack_score(card(c("A","10"), c("♠","♦")))   # returns 21
-blackjack_score(card(c("A","9","2"), c("♠","♣","♦")))  # returns 12
+blackjack_score(card(c("A", "10"), c("♠", "♦")))       # returns 21
+blackjack_score(card(c("A", "9", "2"), c("♠", "♣", "♦"))) # returns 12
+
 }

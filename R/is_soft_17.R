@@ -1,15 +1,22 @@
-#' Check if Dealer Has a Soft 17
+#' Check if a Hand is a Soft 17
 #'
-#' A soft 17 means the hand totals 17 with an Ace counted as 11.
+#' Determines whether a Blackjack hand qualifies as a "soft 17".
+#' A soft 17 is a total of 17 where an Ace is being counted as 11.
+#' This distinction affects the dealer's behavior — dealers typically hit on soft 17.
 #'
-#' @param hand A `card` vector (e.g. `card(c("A","6"), c("♠","♣"))`).
+#' @param hand A `card` vector representing a Blackjack hand (e.g. `card(c("A", "6"), c("♠", "♣"))`).
 #'
-#' @return Logical. TRUE if the hand is a soft 17, FALSE otherwise.
-#' @export
+#' @details
+#' The function uses the `blackjack_score()` to calculate the hand’s value assuming optimal Ace handling,
+#' and then checks if lowering the Ace(s) to 1 would reduce the total below 17. If so, the hand is a soft 17.
+#'
+#' @return A logical value: `TRUE` if the hand is a soft 17, `FALSE` otherwise.
 #'
 #' @examples
-#' is_soft_17(card(c("A","6"), c("♠","♣")))   # TRUE
-#' is_soft_17(card(c("10","7"), c("♠","♦")))  # FALSE
+#' is_soft_17(card(c("A", "6"), c("♠", "♣")))   # TRUE
+#' is_soft_17(card(c("10", "7"), c("♠", "♦")))  # FALSE
+#'
+#' @export
 is_soft_17 <- function(hand) {
   if (!inherits(hand, "card")) {
     stop("`hand` must be a card vector.")

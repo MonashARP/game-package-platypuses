@@ -1,14 +1,27 @@
-#' Create a Blackjack Deck
+#' Create a Shuffled Blackjack Deck
 #'
-#' Generates a shuffled deck used in Blackjack.
-#' You can specify the number of standard 52-card decks to include.
+#' Generates a shuffled deck of cards for use in Blackjack games.
+#' Supports combining multiple standard 52-card decks into one.
 #'
-#' @param no_of_decks Number of standard decks to include (default is 1)
-#' @return An object of class blackjack_deck, which is a list containing the shuffled cards and number of decks.
-#' @export
+#' @param no_of_decks Integer. Number of standard decks to include (default is 1).
+#'
+#' @details
+#' Each card is represented using the custom `card` vector class. The returned object includes
+#' a shuffled vector of cards and metadata about the number of decks used. This function is typically
+#' used as the starting point for dealing hands in the game.
+#'
+#' @return An object of class `"blackjack_deck"`, which is a list with two elements:
+#' \describe{
+#'   \item{cards}{A shuffled `card` vector.}
+#'   \item{decks}{The number of decks used to create the full shoe.}
+#' }
+#'
 #' @examples
 #' deck <- deck_cards()
-
+#' str(deck)
+#' head(deck$cards)
+#'
+#' @export
 deck_cards <- function(no_of_decks = 1) {
   if (!is.numeric(no_of_decks) || no_of_decks < 1 || no_of_decks %% 1 != 0) {
     stop("no_of_decks must be a positive whole number")

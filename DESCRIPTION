@@ -8,16 +8,18 @@ Authors@R: c(
 Description: The Blackjack package enables users to simulate rounds of the
     classic Blackjack game and calculate the score of hands using standard
     rules. It supports deck generation, hand scoring, soft 17 logic, and full game simulation.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: 
     dplyr,
+    vctrs,
     Rcpp
 LinkingTo: 
     Rcpp    
 Suggests: 
     knitr,
     rmarkdown,
+    devtools,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

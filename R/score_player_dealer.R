@@ -1,16 +1,22 @@
-#' Score a Blackjack Hand
+#' Calculate the Score of a Blackjack Hand
 #'
-#' This function calculates the total score of a given Blackjack hand using a C++ backend
-#' Aces are treated as 11 unless it causes the hand to bust, in which case
-#' they are treated as 1.
+#' This function computes the total value of a Blackjack hand using a C++ backend for efficient scoring.
+#' Aces are treated as 11 unless doing so causes the hand to bust, in which case they are treated as 1.
 #'
-#' @param hand A `card` vector (e.g., `card(c("A","10"), c("♠","♦"))`).
+#' @param hand A `card` vector representing the hand to be scored (e.g., `card(c("A","10"), c("♠","♦"))`).
+#'
+#' @details
+#' This function calls an underlying C++ function (`score_hand_cpp`) for performance.
+#' It automatically adjusts Ace values and supports hands of any length.
+#'
+#' @return A numeric value between 2 and 31 representing the total score of the hand.
+#'
+#' @examples
+#' blackjack_score(card(c("A", "10"), c("♠", "♦")))       # returns 21
+#' blackjack_score(card(c("A", "9", "2"), c("♠", "♣", "♦"))) # returns 12
+#'
 #' @useDynLib Blackjack, .registration = TRUE
 #' @importFrom Rcpp evalCpp
-#' @return A numeric value representing the score of the hand.
-#' @examples
-#' blackjack_score(card(c("A","10"), c("♠","♦")))   # returns 21
-#' blackjack_score(card(c("A","9","2"), c("♠","♣","♦")))  # returns 12
 #' @export
 blackjack_score <- function(hand) {
   if (!inherits(hand, "card")) {

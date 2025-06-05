@@ -2,16 +2,22 @@
 % Please edit documentation in R/card_class.R
 \name{c.card}
 \alias{c.card}
-\title{Combine card vectors with c()}
+\title{Combine Multiple Card Vectors}
 \usage{
 \method{c}{card}(...)
 }
 \arguments{
-\item{...}{One or more objects of class 'card'}
+\item{...}{One or more objects of class \code{"card"}.}
 }
 \value{
-A single 'card' vector containing all inputs
+A combined \code{card} vector.
 }
 \description{
-Combine card vectors with c()
+Method for \code{c()} that combines one or more \code{card} vectors into a single vector.
+}
+\examples{
+hand1 <- card(c("A", "10"), c("♠", "♦"))
+hand2 <- card(c("Q"), c("♥"))
+c(hand1, hand2)
+
 }

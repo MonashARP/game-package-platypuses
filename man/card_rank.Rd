@@ -2,20 +2,25 @@
 % Please edit documentation in R/card_utils.R
 \name{card_rank}
 \alias{card_rank}
-\title{Extract the rank (value) of a card}
+\title{Extract Rank from a Card Vector}
 \usage{
 card_rank(x)
 }
 \arguments{
-\item{x}{A \code{card} vector.}
+\item{x}{A \code{card} vector created using \code{card()}.}
 }
 \value{
-A character vector of ranks ("2", "3", …, "10", "J", "Q", "K", "A").
+A character vector of ranks ("2"–"10", "J", "Q", "K", "A").
 }
 \description{
-Extract the rank (value) of a card
+Returns the rank (face value) of each card in a \code{card} vector.
+}
+\details{
+This function returns character values from the \code{rank} field of each card.
+Input must be of class \code{card}; otherwise, an error is raised.
 }
 \examples{
 cards <- card(c("A", "10", "Q"), c("♠", "♥", "♦"))
-card_rank(cards)
+card_rank(cards)  # "A" "10" "Q"
+
 }

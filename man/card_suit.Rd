@@ -2,20 +2,25 @@
 % Please edit documentation in R/card_utils.R
 \name{card_suit}
 \alias{card_suit}
-\title{Extract the suit of a card}
+\title{Extract Suit from a Card Vector}
 \usage{
 card_suit(x)
 }
 \arguments{
-\item{x}{A \code{card} vector (vctrs record with fields \code{rank} and \code{suit}).}
+\item{x}{A \code{card} vector created using \code{card()}.}
 }
 \value{
-A character vector of suit symbols (one of "♠", "♥", "♦", "♣").
+A character vector of suit symbols, one for each card.
 }
 \description{
-Extract the suit of a card
+Returns the suit symbols (♠, ♥, ♦, ♣) of each card in a \code{card} vector.
+}
+\details{
+This function uses method dispatch to extract the \code{suit} field from the custom card class.
+If the input is not a \code{card} object, an informative error is thrown.
 }
 \examples{
 cards <- card(c("A", "10", "Q"), c("♠", "♥", "♦"))
-card_suit(cards)
+card_suit(cards)  # "♠" "♥" "♦"
+
 }
