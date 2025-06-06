@@ -68,19 +68,19 @@ These defaults help users try out the package immediately without needing to und
 
 Here’s how a typical user would use our package step by step:
 
-1.  **Create a deck** Use `deck_cards()` to generate one or more shuffled decks of cards for the game.
+1.  **Create a deck**: Use `deck_cards()` to generate one or more shuffled decks of cards for the game.
 
-2.  **Deal cards** Use `deal_hand()` to draw cards from the deck for players or the dealer.
+2.  **Deal cards**: Use `deal_hand()` to draw cards from the deck for players or the dealer.
 
-3.  **Create hands** If needed, users can manually create hands using the `card()` constructor to specify custom cards.
+3.  **Create hands**: If needed, users can manually create hands using the `card()` constructor to specify custom cards.
 
-4.  **Score hands** Use `blackjack_score()` to calculate the total Blackjack score of any hand, with proper Ace handling.
+4.  **Score hands**: Use `blackjack_score()` to calculate the total Blackjack score of any hand, with proper Ace handling.
 
-5.  **Check for rules like soft 17** Use `is_soft_17()` to determine if a hand meets the soft 17 condition.
+5.  **Check for rules like soft 17**: Use `is_soft_17()` to determine if a hand meets the soft 17 condition.
 
-6.  **Simulate a full game** To run a complete round of Blackjack with multiple players and a dealer, use `simulate_blackjack_game()`.
+6.  **Simulate a full game**: To run a complete round of Blackjack with multiple players and a dealer, use `simulate_blackjack_game()`.
 
-7.  **Explore card details** Use helper functions like `card_rank()`, `card_suit()`, and `is_face_card()` to extract or check details about individual cards.
+7.  **Explore card details**: Use helper functions like `card_rank()`, `card_suit()`, and `is_face_card()` to extract or check details about individual cards.
 
 This makes the package flexible for both simple uses and advanced customization — advanced users can build their own gameplay loop, while casual users can simulate a full game with a single function call.
 

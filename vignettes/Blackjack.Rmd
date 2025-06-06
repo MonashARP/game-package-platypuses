@@ -81,12 +81,14 @@ is_soft_17(card(c("10", "7"), c("♠", "♦"))) # FALSE
 
 ## Custom Card Vector Class
 
-This package includes a custom vector class for cards using the `vctrs` package. You can create a card vector and extract information like suit or value:
+This package includes a custom vector class for cards, implemented using the vctrs package. The card() constructor allows you to create a vector of cards with validated ranks and suits. 
+You can then extract or compute useful properties using helper functions:
 
 ```{r}
 cards <- card(c("A", "10", "7"), c("♥", "♦", "♠"))
 card_suit(cards)
 card_value(cards)
+is_face_card(cards) 
 ```
 
 ## Team Contributions
@@ -101,13 +103,5 @@ This package was collaboratively developed by *Min Ni Hong*, *Vaishnavi Amuda*, 
 
 The team worked closely throughout the development process, reviewing each other’s code, sharing design decisions, and troubleshooting together to ensure the final package was cohesive, well-integrated, and thoroughly tested.
 
-## Getting Started
 
-To install and run the package locally:
-
-```{r}
-# In your local dev environment
-devtools::load_all()
-```
-
-For a detailed explanation of internal design decisions, C++ and vctrs integration, and future considerations, please refer to the [Design decisions behind the Blackjack package](https://monasharp.github.io/game-package-platypuses/articles/design-choices.html).
+For more details on the internal design, including C++ and vctrs integration, and future improvements, see the [Design decisions behind the Blackjack package](https://monasharp.github.io/game-package-platypuses/articles/design-choices.html).

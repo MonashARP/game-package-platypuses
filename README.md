@@ -73,7 +73,7 @@ game$players[[1]]
 #> [1] "Player busts! Dealer wins."
 ```
 
-## Learn More
+## Getting helpb
 
 For more details and examples, see the vignette or visit the package
 website
