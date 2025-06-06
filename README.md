@@ -40,6 +40,15 @@ devtools::install_github("MonashARP/game-package-platypuses")
 
 ------------------------------------------------------------------------
 
+You can also explore function documentation without attaching the full
+package by using `?Blackjack::function_name`. For example:
+
+``` r
+??Blackjack::blackjack_score
+# or
+?Blackjack::blackjack_score
+```
+
 ## Example
 
 ``` r
