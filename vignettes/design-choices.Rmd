@@ -150,6 +150,12 @@ We used ChatGPT to assist with writing documentation, creating unit test example
 
 - *“I created a custom card class using vctrs::new_rcrd(). I also wrote helper functions like card_suit() and card_rank(). Can you show me how to write basic unit tests using testthat to check that these functions return the correct output and throw informative errors for non-card inputs?”*
 
+- *"I'm using Rcpp in an R package. Where do I place my C++ file, and how do I make sure the function is registered properly with Rcpp?"*
+
+- *"I'm getting the error Blackjack_score_hand_cpp not available for .Call(). I have a C++ file in src/ and used // [[Rcpp::export]]. How do I fix this?"*
+
+-*"What's the best way to write an R wrapper around a C++ function so I can call it from other R functions?"*
+
 These responses helped us understand best practices for structuring our game package, especially when using vctrs and Rcpp. We directly used the suggestions to write clearer documentation, fix warnings during package checks, and improve test coverage. In particular, ChatGPT guided us in resolving technical issues (e.g., .Call() errors), designing internal methods, and writing unit tests that follow tidyverse and CRAN standards. This support improved our package quality and development workflow.
 
 ## Summary
