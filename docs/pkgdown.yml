@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   Blackjack: Blackjack.html
   design-choices: design-choices.html
-last_built: 2025-06-05T13:36Z
+last_built: 2025-06-06T03:43Z
 urls:
   reference: https://monasharp.github.io/game-package-platypuses/reference
   article: https://monasharp.github.io/game-package-platypuses/articles

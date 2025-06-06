@@ -142,8 +142,6 @@ We used ChatGPT to assist with writing documentation, creating unit test example
 
 -   *“it is better to define the methods for using vector under the same .R file or seperate ?”*
 
--   *“I'm trying to call a C++ function from R using .Call(), but I get the error: '\_Blackjack_score_hand_cpp' not available for .Call() for package 'Blackjack'. What does this mean and how can I fix it? I'm using Rcpp and have the C++ file inside the src folder.”*
-
 -   *“I’m getting a `devtools::check()` warning: ‘Undocumented code objects: vec_ptype2.card.card’. I don’t want to export this internal method. Is there a way to suppress this or document it minimally to pass CRAN-style checks?”*
 
 -   *“I’m using a custom S3 class with vctrs in my Blackjack R package. When I run `devtools::check()`, I get a warning about undocumented code objects like `vec_ptype2.card.character`. I already marked these functions with `@noRd`. Why is the warning still showing, and how can I fix it properly without exporting them?”*

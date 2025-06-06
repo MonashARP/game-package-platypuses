@@ -260,10 +260,6 @@ and suit) and later extract them separately in helper functions like
 card_rank() and card_suit()?”</em></p></li>
 <li><p><em>“it is better to define the methods for using vector under
 the same .R file or seperate ?”</em></p></li>
-<li><p><em>“I’m trying to call a C++ function from R using .Call(), but
-I get the error: ‘_Blackjack_score_hand_cpp’ not available for .Call()
-for package ‘Blackjack’. What does this mean and how can I fix it? I’m
-using Rcpp and have the C++ file inside the src folder.”</em></p></li>
 <li><p><em>“I’m getting a <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> warning:
 ‘Undocumented code objects: vec_ptype2.card.card’. I don’t want to
 export this internal method. Is there a way to suppress this or document
@@ -279,7 +275,15 @@ also wrote helper functions like card_suit() and card_rank(). Can you
 show me how to write basic unit tests using testthat to check that these
 functions return the correct output and throw informative errors for
 non-card inputs?”</em></p></li>
+<li><p><em>“I’m using Rcpp in an R package. Where do I place my C++
+file, and how do I make sure the function is registered properly with
+Rcpp?”</em></p></li>
+<li><p><em>“I’m getting the error Blackjack_score_hand_cpp not available
+for .Call(). I have a C++ file in src/ and used // [[Rcpp::export]]. How
+do I fix this?”</em></p></li>
 </ul>
+<p>-<em>“What’s the best way to write an R wrapper around a C++ function
+so I can call it from other R functions?”</em></p>
 <p>These responses helped us understand best practices for structuring
 our game package, especially when using vctrs and Rcpp. We directly used
 the suggestions to write clearer documentation, fix warnings during
