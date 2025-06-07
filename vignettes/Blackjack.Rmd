@@ -1,0 +1,107 @@
+---
+title: "Blackjack Game"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Blackjack Game}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Introduction of `Blackjack` package
+
+The `Blackjack` package allows users to simulate and score a round of the classic Blackjack card game. Users can deal cards, calculate hand values, simulate full game rounds, and explore decision-making logic such as whether a dealer should hit on a soft 17. The package also supports extensibility via custom vector classes and C++-based scoring logic for efficiency.
+
+## What is Blackjack?
+
+Blackjack is a casino card game played between a *dealer* and one or more *players*. The goal is to get a hand value as close to 21 as possible, without going over. Number cards are worth their face value, face cards (J, Q, K) are worth 10, and Aces can be worth 1 or 11 depending on the hand. The player can choose to "hit" (take another card) or "stand" (keep their current hand). The dealer follows a fixed strategy and must hit until reaching at least 17.
+
+## Basic Usage
+
+```{r}
+# Load the package
+library(Blackjack)
+
+# Create a shuffled card deck
+deck <- deck_cards()
+
+# Deal a hand of 2 cards
+deal_hand(deck$cards, 2)
+
+# Score a hand
+blackjack_score(card(c("A", "9"), c("♠", "♦")))
+
+```
+
+### Simulating a round
+
+The `simulate_blackjack_game()` function plays out a full round for one or more players using realistic Blackjack rules. This includes scoring logic, dealer AI, and the option to set a seed for reproducibility.
+
+```{r}
+game <- simulate_blackjack_game(num_players = 2, seed = 375)
+print(game)
+```
+
+### Accessing Player and Dealer Results
+
+You can inspect results for players and dealer separately.
+
+-   To check the results for Player 1, use:
+
+```{r}
+game$players[[1]]
+```
+
+You can change the number in players[[x]] to inspect other players (e.g., players[[2]] for Player 2).
+
+-   To check the Dealer's hand and score, use:
+
+```{r}
+game$dealer
+```
+
+### Check for Soft 17
+
+The helper function `is_soft_17()` checks whether a hand is considered a "soft 17" — that is, a hand totaling 17 that includes an Ace counted as 11. This rule affects whether the dealer should hit or stand during gameplay.
+
+This function is used internally by `simulate_blackjack_game()`, but you can also test hands manually:
+
+```{r}
+is_soft_17(card(c("A", "6"), c("♠", "♣")))  # TRUE
+is_soft_17(card(c("10", "7"), c("♠", "♦"))) # FALSE
+```
+
+## Custom Card Vector Class
+
+This package includes a custom vector class for cards, implemented using the vctrs package. The card() constructor allows you to create a vector of cards with validated ranks and suits. 
+You can then extract or compute useful properties using helper functions:
+
+```{r}
+cards <- card(c("A", "10", "7"), c("♥", "♦", "♠"))
+card_suit(cards)
+card_value(cards)
+is_face_card(cards) 
+```
+
+## Team Contributions
+
+This package was collaboratively developed by *Min Ni Hong*, *Vaishnavi Amuda*, and *Shivesh Krishna*.
+
+-   *Min Ni Hong* implemented the foundational components of the package’s card system. This included designing the custom `card` constructor, implementing essential `vctrs` methods (such as `vec_ptype2()`, `vec_cast()`, and `format()`), and writing unit tests to ensure these new structures behaved consistently. They also contributed the first section of the design vignette, explaining the motivation behind creating a dedicated `card` class.
+
+-   *Vaishnavi Amuda* focused on extending the functionality of the new card class through custom generics. They implemented functions such as `card_suit()`, `card_value()`, and related `.card` methods, and also adapted a few existing helpers like `build_full_deck()` to make use of the new constructor. Comprehensive tests were written for each generic, and they authored the second section of the design vignette covering why generics were used and how they enhance extensibility.
+
+-   *Shivesh Krishna* led the performance-focused enhancements by integrating C++ via Rcpp for hand scoring. They wrote `score_hand_cpp`, ensured compatibility with the `card` class across all gameplay functions, and refactored core gameplay logic to make full use of the new system. Unit tests were created for both the C++ scoring and the refactored game pipeline. They also completed the third section of the design vignette, documenting the rationale for using C++, and handled the final package checks and vignette knitting.
+
+The team worked closely throughout the development process, reviewing each other’s code, sharing design decisions, and troubleshooting together to ensure the final package was cohesive, well-integrated, and thoroughly tested.
+
+
+For more details on the internal design, including C++ and vctrs integration, and future improvements, see the [Design decisions behind the Blackjack package](https://monasharp.github.io/game-package-platypuses/articles/design-choices.html).

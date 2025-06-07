@@ -1,0 +1,173 @@
+---
+title: "Design Decisions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Design Decisions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Overview
+
+This vignette describes how we designed the Blackjack R package. It explains our choices for function names, arguments, and how users interact with the package. We also cover how internal helper functions support clean and testable code, and why we didn’t use non-standard evaluation. Limitations and other designs we considered are discussed. We also explain how ChatGPT helped us with writing code, fixing errors, and writing documentation. 
+
+## Function name Design
+
+We used simple and clear names for all functions so users can easily guess what they do — especially beginners.
+
+-   `card()` is the main constructor that creates a custom card vector. It checks that the ranks and suits are valid and uses a consistent format.
+
+-   `blackjack_score()` calculates the total score of a hand using Blackjack rules.
+
+-   `simulate_blackjack_game()` simulates a full multiplayer Blackjack game.
+
+-   `is_soft_17()` checks if a hand is a soft 17, which means the hand totals 17 with an Ace counted as 11. This rule is important because the dealer must hit on a soft 17.
+
+-   `deck_cards()` creates a shuffled deck (or multiple decks).
+
+-   `deal_hand()` lets users draw a certain number of cards from a deck.
+
+We also included helper functions that work with `card` objects:
+
+-   `card_suit()` extracts the suit (♠, ♥, ♦, ♣).
+
+-   `card_rank()` extracts the rank (A, 2–10, J, Q, K).
+
+-   `is_face_card()` checks if a card is a face card (J, Q, or K).
+
+These helper functions assist users in identifying or extracting useful information from card vectors. They also use S3 method dispatch (`UseMethod`), making them flexible and robust. We provided default methods to deliver informative error messages when the input is not a valid `card` object.
+
+## Argument Design
+
+We included arguments like rank, suit, num_players, and seed to give users flexibility and control over how the game runs.
+
+For `card()`, the `rank` and `suit` arguments are essential. By requiring users to supply them, they can create any hand they want. We included validation to ensure:
+
+-   The ranks and suits are from a valid set.
+
+-   The two vectors are of equal length.
+
+-   This helps avoid silent bugs and provides clear feedback.
+
+We added default values where possible to make the functions beginner-friendly:
+
+-   `num_players = 1` allows quick simulation of a single-player game.
+
+-   `no_of_decks = 1` is the default in `deck_cards()`, matching a standard Blackjack setup.
+
+These defaults help users try out the package immediately without needing to understand all the details first.
+
+## User Workflow
+
+Here’s how a typical user would use our package step by step:
+
+1.  **Create a deck**: Use `deck_cards()` to generate one or more shuffled decks of cards for the game.
+
+2.  **Deal cards**: Use `deal_hand()` to draw cards from the deck for players or the dealer.
+
+3.  **Create hands**: If needed, users can manually create hands using the `card()` constructor to specify custom cards.
+
+4.  **Score hands**: Use `blackjack_score()` to calculate the total Blackjack score of any hand, with proper Ace handling.
+
+5.  **Check for rules like soft 17**: Use `is_soft_17()` to determine if a hand meets the soft 17 condition.
+
+6.  **Simulate a full game**: To run a complete round of Blackjack with multiple players and a dealer, use `simulate_blackjack_game()`.
+
+7.  **Explore card details**: Use helper functions like `card_rank()`, `card_suit()`, and `is_face_card()` to extract or check details about individual cards.
+
+This makes the package flexible for both simple uses and advanced customization — advanced users can build their own gameplay loop, while casual users can simulate a full game with a single function call.
+
+## Use of internal modular functions
+
+We included a few internal helper functions to keep our code clean and organised:
+
+-   `new_card()` is used inside the main `card()` function to build the card object. It's not exported because it skips input checks, so it should only be used safely inside our package.
+
+-   `draw_cards()` is defined inside `simulate_blackjack_game()` to handle drawing cards from the deck. We kept it internal because it's only useful during the simulation.
+
+By breaking our code into smaller pieces like this, it's easier to test, fix, or update one part without affecting everything else. This modular design also helps us reuse the same logic in different places and keeps the main functions simple and easy to understand.
+
+## Use of Non-Standard Evaluation (NSE)
+
+NSE was not used in this package. We chose standard evaluation for simplicity, transparency, and better compatibility with testing and debugging workflows.
+
+## Limitations
+
+While the core game functionality works as intended, the current version of the package has several limitations:
+
+-   No support for Blackjack betting mechanics (e.g., betting chips, insurance, doubling down, splitting).
+
+-   Player AI is rule-based and not probabilistic or adaptive.
+
+-   Multiplayer is simulated with independent players, but no interactions or table-based dynamics are supported.
+
+-   Only basic strategy is followed (e.g., hit below 17, stand otherwise).
+
+-   No support for saving game state or custom deck configurations.
+
+-   Most main functions are tested, but not all edge cases are covered yet (e.g., all cards of one suit, consecutive face cards).
+
+-   No GUI or Shiny-based frontend.
+
+Unit tests are included for most user-facing functions, but edge cases (e.g. only face cards) are not fully covered.
+
+These limitations were consciously accepted in order to prioritize core game mechanics and code clarity.
+
+## Alternative Designs Considered
+
+We discussed and considered several alternative approaches:
+
+-   **Object system**: We considered using S4 or R6 classes to model cards and decks. Ultimately, we chose S3 with `vctrs::new_rcrd` for simplicity and better compatibility with the tidyverse.
+
+-   **Card representation**: Rather than use base R structures (e.g., lists or character vectors), we created a custom `card` class using `vctrs`. This allowed better type control and more intuitive printing and formatting.
+
+-   **Game strategy**: A full decision table for optimal Blackjack strategy was considered but excluded due to time and complexity. This could be added later.
+
+-   **Deck generation**: We briefly discussed external configuration files (e.g. JSON-based deck layouts) but chose not to include them to keep the package lightweight.
+
+-   **Exposing internal helpers**: We debated exporting low-level functions like `new_card()` and `score_hand_cpp()`, but kept them internal for encapsulation.
+
+## Use of AI (LLM) Support
+
+We used ChatGPT to assist with writing documentation, creating unit test examples, debugging function errors, and drafting function implementations. Specifically, we provided prompts like:
+
+-   *"card \<- function(rank = character(), suit = character()) {...}" “I’m writing a custom vctrs class for a card object in my Blackjack R package. I want to store both the rank and suit of each card. I’m not sure whether I should use vctrs::new_vctr() or vctrs::new_rcrd() for the constructor. Which one is better when I need to store two fields (rank and suit) and later extract them separately in helper functions like card_rank() and card_suit()?”*
+
+-   *“it is better to define the methods for using vector under the same .R file or seperate ?”*
+
+-   *“I’m getting a `devtools::check()` warning: ‘Undocumented code objects: vec_ptype2.card.card’. I don’t want to export this internal method. Is there a way to suppress this or document it minimally to pass CRAN-style checks?”*
+
+-   *“I’m using a custom S3 class with vctrs in my Blackjack R package. When I run `devtools::check()`, I get a warning about undocumented code objects like `vec_ptype2.card.character`. I already marked these functions with `@noRd`. Why is the warning still showing, and how can I fix it properly without exporting them?”*
+
+- *“I created a custom card class using vctrs::new_rcrd(). I also wrote helper functions like card_suit() and card_rank(). Can you show me how to write basic unit tests using testthat to check that these functions return the correct output and throw informative errors for non-card inputs?”*
+
+- *"I'm using Rcpp in an R package. Where do I place my C++ file, and how do I make sure the function is registered properly with Rcpp?"*
+
+- *"I'm getting the error Blackjack_score_hand_cpp not available for .Call(). I have a C++ file in src/ and used // [[Rcpp::export]]. How do I fix this?"*
+
+-*"What's the best way to write an R wrapper around a C++ function so I can call it from other R functions?"*
+
+These responses helped us understand best practices for structuring our game package, especially when using vctrs and Rcpp. We directly used the suggestions to write clearer documentation, fix warnings during package checks, and improve test coverage. In particular, ChatGPT guided us in resolving technical issues (e.g., .Call() errors), designing internal methods, and writing unit tests that follow tidyverse and CRAN standards. This support improved our package quality and development workflow.
+
+## Summary
+
+We aimed to strike a balance between extensibility and simplicity. Our core design decisions were:
+
+-   Use S3 + vctrs to model cards with type safety
+
+-   Leverage C++ for scoring logic where performance matters
+
+-   Keep AI minimal and simulation linear
+
+-   Write unit tests to validate gameplay logic
+
+-   Document AI usage and limitations transparently
+
+This package provides a clean foundation for anyone looking to extend a Blackjack engine in R, whether to add features, connect with Shiny, or explore decision theory in gameplay.

@@ -1,0 +1,29 @@
+Package: Blackjack
+Title: Simulate and Score Blackjack Game Rounds
+Version: 0.0.1
+Authors@R: c(
+    person("Min Ni", "Hong", email = "mhon0009@student.monash.edu", role = c("aut", "cre")),
+    person("Vaishnavi", "Amuda", email = "vamu0003@student.monash.edu", role = "aut"),
+    person("Shivesh", "Palanisamy", email = "spal0044@student.monash.edu", role = "aut"))
+Description: The Blackjack package enables users to simulate rounds of the
+    classic Blackjack game and calculate the score of hands using standard
+    rules. It supports deck generation, hand scoring, soft 17 logic, and full game simulation.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports: 
+    dplyr,
+    vctrs,
+    Rcpp
+LinkingTo: 
+    Rcpp    
+Suggests: 
+    knitr,
+    rmarkdown,
+    devtools,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+URL: https://monasharp.github.io/game-package-platypuses
